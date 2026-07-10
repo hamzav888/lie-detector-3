@@ -7,7 +7,7 @@ A **pre-launch, single-page waitlist landing site** for the **Lie Detector App**
 playful mobile **entertainment** app launching soon on iOS & Android. Built by
 **Matrixx Agency**. The site's only job: **build hype and capture email signups**.
 
-> Wordmark is a placeholder (`TRUTHERAAA`). Swap it — see README "Swap-in list".
+> Wordmark reads `Lie Detector App`. Swap `SITE.name` for a real brand later — see README "Swap-in list".
 
 ## The product (for accurate copy)
 A social party game. Using the phone camera it reads stress-y signals — eyes/blinks,

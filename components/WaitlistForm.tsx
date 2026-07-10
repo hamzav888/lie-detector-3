@@ -211,8 +211,8 @@ function ShareButton() {
   const [copied, setCopied] = useState(false);
   async function share() {
     const shareData = {
-      title: "TRUTHERAAA",
-      text: "I just skipped the line for the funniest lie-detector party app. Get in before me 👀",
+      title: "Lie Detector App",
+      text: "I just skipped the line for the funniest lie-detector party app. Get in before me.",
       url: typeof window !== "undefined" ? window.location.href : "",
     };
     try {

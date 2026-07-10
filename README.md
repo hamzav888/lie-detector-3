@@ -127,7 +127,7 @@ lib/
 
 1. **Wordmark / brand name** — edit `SITE.name` (and `tagline`, `url`, `socials`) in
    [`lib/site.ts`](lib/site.ts). To change the little logo mark, edit the SVG in
-   [`components/Wordmark.tsx`](components/Wordmark.tsx). Currently `TRUTHERAAA` (placeholder).
+   [`components/Wordmark.tsx`](components/Wordmark.tsx). Currently `Lie Detector App`.
 2. **Email provider key** — set `WAITLIST_PROVIDER` + the matching keys in `.env.local`
    (see [`.env.local.example`](.env.local.example)). Same vars go in Vercel.
 3. **Domain** — set `SITE.url` in [`lib/site.ts`](lib/site.ts) (used for metadata/OG),
