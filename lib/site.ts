@@ -1,7 +1,7 @@
 /**
  * Central site configuration + copy tokens.
  * Tweak these to re-skin the page without hunting through components.
- * (Edit brand, socials, and the waitlist counter here.)
+ * (Edit brand, socials, and the waitlist counter here — no component edits needed.)
  */
 export const SITE = {
   name: "Lie Detector App",
