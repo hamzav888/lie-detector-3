@@ -26,6 +26,8 @@ export const metadata: Metadata = {
   applicationName: SITE.name,
   keywords: [
     "lie detector app",
+    "poker face",
+    "bluff game",
     "truth or dare",
     "party game app",
     "waitlist",

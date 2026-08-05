@@ -10,8 +10,9 @@ export default function Footer() {
           <div className="max-w-sm">
             <Wordmark onDark />
             <p className="mt-3 font-semibold text-white/70">
-              The lie-detector party game that turns your face into a
-              game show. Coming soon to iOS &amp; Android.
+              The lie-detector party game that turns your face into a game show —
+              Party Mode, Poker Mode, and a very nosy needle. Coming soon to iOS
+              &amp; Android.
             </p>
             <a href="#join" className="btn-pop mt-5 bg-lime text-ink">
               JOIN THE WAITLIST

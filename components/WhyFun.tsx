@@ -2,6 +2,7 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import Reveal from "./Reveal";
+import SuitIcon from "./Suit";
 
 type Feature = {
   title: string;
@@ -11,6 +12,9 @@ type Feature = {
   span: string;
   icon: React.ReactNode;
   badge?: string;
+  /** optional jump link to a section that expands on this mode */
+  href?: string;
+  linkLabel?: string;
 };
 
 const FEATURES: Feature[] = [
@@ -19,8 +23,19 @@ const FEATURES: Feature[] = [
     body: "Pass the phone around the circle. Everyone answers, everyone gets exposed. Chaos guaranteed.",
     bg: "bg-magenta",
     text: "text-white",
-    span: "sm:col-span-2",
+    span: "",
     icon: <IconParty />,
+  },
+  {
+    title: "Poker Mode",
+    body: "The high-stakes one. Sit heads-up across the table, read the tells, and call the bluff — whoever keeps the coldest face takes the pot.",
+    bg: "bg-felt",
+    text: "text-white",
+    span: "sm:col-span-2",
+    icon: <IconSuits />,
+    badge: "NEW",
+    href: "#poker",
+    linkLabel: "See how Poker Mode plays",
   },
   {
     title: "‘Best Liar’ Leaderboard",
@@ -43,7 +58,7 @@ const FEATURES: Feature[] = [
     body: "Every reveal is a post waiting to happen. Big meter, big number, big group chat energy.",
     bg: "bg-lime",
     text: "text-ink",
-    span: "sm:col-span-2",
+    span: "",
     icon: <IconShareBig />,
   },
   {
@@ -70,10 +85,14 @@ export default function WhyFun() {
     <section id="why" className="relative bg-magenta/10 px-4 py-16 sm:px-6 sm:py-24">
       <div className="mx-auto max-w-6xl">
         <Reveal className="mb-10 text-center sm:mb-14">
-          <span className="eyebrow bg-magenta text-white">WHY IT SLAPS</span>
+          <span className="eyebrow bg-magenta text-white">PICK YOUR MODE</span>
           <h2 className="mt-4 font-display text-4xl font-extrabold leading-none tracking-tight sm:text-5xl lg:text-6xl">
             Built to blow up your group chat
           </h2>
+          <p className="mx-auto mt-3 max-w-xl text-lg font-semibold text-ink/70">
+            Party chaos, one-on-one showdowns, and a leaderboard nobody asked for
+            but everybody wants to win.
+          </p>
         </Reveal>
 
         <div className="grid gap-4 sm:grid-cols-3">
@@ -110,11 +129,29 @@ function FeatureCard({ f }: { f: Feature }) {
       <p className={`mt-2 font-semibold ${f.text === "text-white" ? "text-white/85" : "text-ink/70"}`}>
         {f.body}
       </p>
+      {f.href && (
+        <a
+          href={f.href}
+          className="mt-4 inline-flex w-fit items-center gap-1.5 rounded-pill border-[3px] border-ink bg-sun px-4 py-1.5 font-display text-sm font-extrabold text-ink shadow-pop-sm transition-transform hover:-translate-y-[2px]"
+        >
+          {f.linkLabel ?? "Learn more"} →
+        </a>
+      )}
     </motion.article>
   );
 }
 
 /* ── drawn icons ── */
+function IconSuits() {
+  return (
+    <span className="grid grid-cols-2 gap-0.5">
+      <SuitIcon suit="spade" className="h-3.5 w-3.5" />
+      <SuitIcon suit="heart" className="h-3.5 w-3.5" />
+      <SuitIcon suit="club" className="h-3.5 w-3.5" />
+      <SuitIcon suit="diamond" className="h-3.5 w-3.5" />
+    </span>
+  );
+}
 function IconParty() {
   return (
     <svg viewBox="0 0 32 32" className="h-8 w-8" aria-hidden="true">

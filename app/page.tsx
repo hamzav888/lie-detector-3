@@ -3,19 +3,32 @@ import Hero from "@/components/Hero";
 import Marquee from "@/components/Marquee";
 import HowItWorks from "@/components/HowItWorks";
 import WhyFun from "@/components/WhyFun";
+import PokerMode from "@/components/PokerMode";
 import InteractiveTeaser from "@/components/InteractiveTeaser";
+import IsItReal from "@/components/IsItReal";
 import SocialProof from "@/components/SocialProof";
 import FAQ from "@/components/FAQ";
 import FinalCTA from "@/components/FinalCTA";
 import Footer from "@/components/Footer";
 
-const MARQUEE_WORDS = [
+// The page runs in two voices: party-bright everywhere, poker for the
+// Poker Mode stretch. Each marquee matches the section it leads into.
+const PARTY_WORDS = [
   "CHALLENGE YOUR FRIENDS",
   "WHO’S THE BEST LIAR?",
   "SCREENSHOT THE CHAOS",
   "TWO PEOPLE · ONE PHONE",
   "THE NEEDLE HAS NO CHILL",
   "CAUGHT!!",
+];
+
+const POKER_WORDS = [
+  "CALL THE BLUFF",
+  "WHO’S GOT THE BEST POKER FACE?",
+  "READ THE TELLS",
+  "HEADS-UP · NO MERCY",
+  "ANTE UP",
+  "SHOWDOWN",
 ];
 
 export default function Home() {
@@ -31,11 +44,14 @@ export default function Home() {
       <Nav />
       <main>
         <Hero />
-        <Marquee items={MARQUEE_WORDS} className="bg-lime text-ink" />
+        <Marquee items={PARTY_WORDS} className="bg-lime text-ink" />
         <HowItWorks />
         <WhyFun />
+        <Marquee items={POKER_WORDS} className="bg-ink text-sun" icon="suits" />
+        <PokerMode />
+        <Marquee items={POKER_WORDS} className="bg-sun text-ink" icon="suits" />
         <InteractiveTeaser />
-        <Marquee items={MARQUEE_WORDS} className="bg-sun text-ink" />
+        <IsItReal />
         <SocialProof />
         <FAQ />
         <FinalCTA />

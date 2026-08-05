@@ -41,6 +41,12 @@ const config: Config = {
           DEFAULT: "#FF3B30",
           deep: "#D01E14",
         },
+        // Poker felt — the one "table" color in an otherwise candy palette
+        felt: {
+          DEFAULT: "#0E7A57",
+          soft: "#17A473",
+          deep: "#08533A",
+        },
       },
       fontFamily: {
         display: ["var(--font-display)", "system-ui", "sans-serif"],
@@ -74,10 +80,21 @@ const config: Config = {
           "0%": { transform: "scale(0.9)", opacity: "0.7" },
           "100%": { transform: "scale(1.6)", opacity: "0" },
         },
+        // poker: chips + cards drifting on the table
+        "floaty-slow": {
+          "0%, 100%": { transform: "translateY(0px) rotate(0deg)" },
+          "50%": { transform: "translateY(-14px) rotate(2deg)" },
+        },
+        "chip-bob": {
+          "0%, 100%": { transform: "translateY(0) rotate(-6deg)" },
+          "50%": { transform: "translateY(-8px) rotate(4deg)" },
+        },
       },
       animation: {
         wiggle: "wiggle 0.6s ease-in-out infinite",
         floaty: "floaty 4s ease-in-out infinite",
+        "floaty-slow": "floaty-slow 6s ease-in-out infinite",
+        "chip-bob": "chip-bob 5s ease-in-out infinite",
         marquee: "marquee 22s linear infinite",
         "pulse-ring": "pulse-ring 1.6s ease-out infinite",
       },

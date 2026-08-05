@@ -1,15 +1,23 @@
 "use client";
 
+import SuitIcon, { type Suit } from "./Suit";
+
+const SUIT_CYCLE: Suit[] = ["spade", "heart", "club", "diamond"];
+
 /**
  * Infinite scrolling sticker banner. The track is duplicated so the CSS
  * translateX(-50%) loop is seamless. Pauses for reduced-motion users.
+ * `icon="suits"` swaps the star separators for cycling card suits — used by
+ * the poker stretch of the page.
  */
 export default function Marquee({
   items,
   className = "",
+  icon = "star",
 }: {
   items: string[];
   className?: string;
+  icon?: "star" | "suits";
 }) {
   const track = [...items, ...items];
   return (
@@ -23,7 +31,15 @@ export default function Marquee({
             <span className="font-display text-xl font-extrabold uppercase tracking-wide">
               {item}
             </span>
-            <Star />
+            {icon === "suits" ? (
+              <SuitIcon
+                suit={SUIT_CYCLE[i % SUIT_CYCLE.length]}
+                color="currentColor"
+                className="h-5 w-5 shrink-0"
+              />
+            ) : (
+              <Star />
+            )}
           </span>
         ))}
       </div>

@@ -10,7 +10,7 @@ export const SITE = {
   url: "https://liedetectorapp.example.com",
   builtBy: "Matrixx Agency",
   description:
-    "Lie Detector App is the outrageously fun lie-detector party game launching soon on iOS & Android. Point your phone, ask the spicy questions, watch the needle FREAK OUT. Join the waitlist for early access.",
+    "Lie Detector App is the outrageously fun lie-detector party game launching soon on iOS & Android. Point your phone, ask the spicy questions, watch the needle FREAK OUT — or go heads-up in Poker Mode. Join the waitlist for early access.",
   // Public-facing waitlist counter starting point (hype flavor only).
   waitlistBaseCount: Number(
     process.env.NEXT_PUBLIC_WAITLIST_BASE_COUNT ?? 18427,

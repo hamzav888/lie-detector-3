@@ -25,6 +25,10 @@ const FAQS = [
     q: "How do I actually play?",
     a: "Two people, one phone. It learns your calm ‘baseline’ from easy warm-up questions, then you ask the spicy ones and watch the meter swing. Screenshot the reveal, post it, run it back.",
   },
+  {
+    q: "What’s Poker Mode?",
+    a: "It’s the head-to-head mode: two players sit across one phone, draw prompts from the poker deck, and try to lie with a straight face while the meter watches. You don’t need to know poker — there are no chips to count and no hands to memorise, it’s just the highest-stakes way to play. Scroll up to the Poker Mode section for the full rundown.",
+  },
 ];
 
 export default function FAQ() {

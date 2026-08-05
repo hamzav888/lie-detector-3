@@ -39,6 +39,12 @@ export default function Nav() {
             How it works
           </a>
           <a
+            href="#poker"
+            className="hidden rounded-pill px-4 py-2 font-display text-base font-extrabold text-ink/80 transition-colors hover:text-ink lg:inline-block"
+          >
+            Poker Mode
+          </a>
+          <a
             href="#faq"
             className="hidden rounded-pill px-4 py-2 font-display text-base font-extrabold text-ink/80 transition-colors hover:text-ink sm:inline-block"
           >
