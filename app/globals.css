@@ -15,6 +15,11 @@ html {
   -webkit-text-size-adjust: 100%;
 }
 
+/* Jump links shouldn't land under the sticky nav pill */
+:where(section[id], [id="join-hero"]) {
+  scroll-margin-top: 5.5rem;
+}
+
 body {
   @apply bg-cream text-ink font-sans antialiased;
   text-rendering: optimizeLegibility;

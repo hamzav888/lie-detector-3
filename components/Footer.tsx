@@ -1,17 +1,25 @@
 import Wordmark from "./Wordmark";
+import SuitIcon from "./Suit";
 import { SITE } from "@/lib/site";
 
 export default function Footer() {
   const year = new Date().getFullYear();
   return (
-    <footer className="bg-ink px-4 py-12 text-white sm:px-6">
+    // pb-28 on phones so the floating CTA never covers copy
+    <footer className="bg-ink px-4 pb-28 pt-12 text-white sm:px-6 sm:pb-12">
       <div className="mx-auto max-w-6xl">
         <div className="flex flex-col gap-8 sm:flex-row sm:items-start sm:justify-between">
           <div className="max-w-sm">
             <Wordmark onDark />
+            <div className="mt-3 flex gap-2" aria-hidden="true">
+              <SuitIcon suit="spade" color="#B6FF2E" className="h-5 w-5" />
+              <SuitIcon suit="heart" color="#FF2D95" className="h-5 w-5" />
+              <SuitIcon suit="club" color="#FFD200" className="h-5 w-5" />
+              <SuitIcon suit="diamond" color="#2E7BFF" className="h-5 w-5" />
+            </div>
             <p className="mt-3 font-semibold text-white/70">
               The lie-detector party game that turns your face into a game show —
-              Party Mode, Poker Mode, and a very nosy needle. Coming soon to iOS
+              party night, poker night, and a very nosy needle. Coming soon to iOS
               &amp; Android.
             </p>
             <a href="#join" className="btn-pop mt-5 bg-lime text-ink">

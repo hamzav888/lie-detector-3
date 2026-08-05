@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import Meter from "./Meter";
 import WaitlistForm from "./WaitlistForm";
+import PokerChip from "./PokerChip";
+import SuitIcon from "./Suit";
 
 // A little scripted demo so the hero meter feels alive on load.
 const DEMO_SEQUENCE = [12, 68, 34, 88, 22, 74, 47];
@@ -37,19 +39,40 @@ export default function Hero() {
         aria-hidden
         className="pointer-events-none absolute -right-16 bottom-0 h-80 w-80 rounded-full bg-lime/40 blur-2xl"
       />
+      {/* a chip drifting in the corner — the only poker note up here */}
+      <div aria-hidden className="pointer-events-none absolute -left-8 bottom-8 hidden lg:block">
+        <PokerChip
+          suit="club"
+          color="#FFD200"
+          edge="#1A1030"
+          className={`h-24 w-24 opacity-90 ${reduce ? "" : "animate-chip-bob"}`}
+        />
+      </div>
 
       <div className="relative mx-auto grid max-w-6xl items-center gap-8 pt-6 md:grid-cols-2 md:gap-6 md:pt-12">
         {/* ── Copy + form ── */}
         <div className="text-center md:text-left">
-          <motion.span
-            initial={reduce ? false : { scale: 0, rotate: -10 }}
-            animate={{ scale: 1, rotate: -3 }}
-            transition={{ type: "spring", stiffness: 300, damping: 12, delay: 0.1 }}
-            className="chip mb-5 inline-flex bg-sun text-ink"
-          >
-            <span className="grid h-4 w-4 place-items-center rounded-full bg-danger" />
-            LAUNCHING SOON · iOS &amp; ANDROID
-          </motion.span>
+          <div className="mb-5 flex flex-wrap items-center justify-center gap-2 md:justify-start">
+            <motion.span
+              initial={reduce ? false : { scale: 0, rotate: -10 }}
+              animate={{ scale: 1, rotate: -3 }}
+              transition={{ type: "spring", stiffness: 300, damping: 12, delay: 0.1 }}
+              className="chip inline-flex bg-sun text-ink"
+            >
+              <span className="grid h-4 w-4 place-items-center rounded-full bg-danger" />
+              LAUNCHING SOON · iOS &amp; ANDROID
+            </motion.span>
+            <motion.a
+              href="#poker"
+              initial={reduce ? false : { scale: 0, rotate: 8 }}
+              animate={{ scale: 1, rotate: 2 }}
+              transition={{ type: "spring", stiffness: 300, damping: 12, delay: 0.18 }}
+              className="chip inline-flex bg-felt text-cream transition-transform hover:-translate-y-[2px]"
+            >
+              <SuitIcon suit="spade" color="#FFF8EE" className="h-3.5 w-3.5" />
+              POKER MODE INSIDE
+            </motion.a>
+          </div>
 
           <h1 className="font-display text-5xl font-extrabold leading-[0.95] tracking-tight text-white sm:text-6xl lg:text-7xl">
             <span className="text-outline block text-white">CAN YOUR FACE</span>

@@ -1,6 +1,7 @@
 "use client";
 
 import Reveal from "./Reveal";
+import SuitIcon from "./Suit";
 
 const COLUMNS = [
   {
@@ -34,6 +35,12 @@ export default function IsItReal() {
 
         <Reveal delay={0.1}>
           <figure className="card-pop mx-auto mt-10 max-w-2xl bg-white p-7 sm:p-9">
+            <div className="mb-4 flex justify-center gap-2" aria-hidden="true">
+              <SuitIcon suit="spade" className="h-5 w-5" />
+              <SuitIcon suit="heart" className="h-5 w-5" />
+              <SuitIcon suit="club" className="h-5 w-5" />
+              <SuitIcon suit="diamond" className="h-5 w-5" />
+            </div>
             <blockquote className="font-display text-2xl font-extrabold leading-tight text-ink sm:text-4xl">
               “It only has to be right about half the time.”
             </blockquote>

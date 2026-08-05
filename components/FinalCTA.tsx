@@ -3,6 +3,8 @@
 import { motion, useReducedMotion } from "framer-motion";
 import WaitlistForm from "./WaitlistForm";
 import Reveal from "./Reveal";
+import PlayingCard from "./PlayingCard";
+import Zigzag from "./Zigzag";
 
 const PERKS = [
   "Skip the line — early access before launch",
@@ -13,10 +15,17 @@ const PERKS = [
 export default function FinalCTA() {
   return (
     <section id="join" className="relative overflow-hidden bg-magenta px-4 py-16 sm:px-6 sm:py-24">
+      <Zigzag fill="#FFF8EE" />
       <div aria-hidden className="pointer-events-none absolute inset-0 bg-dots opacity-30" />
-      {/* floating sticker faces */}
+      {/* floating sticker faces + a card or two off the table */}
       <FloatingFace className="left-[6%] top-10 hidden sm:block" mood="calm" />
       <FloatingFace className="right-[6%] bottom-10 hidden sm:block" mood="panic" />
+      <div aria-hidden className="pointer-events-none absolute bottom-16 left-[3%] hidden lg:block">
+        <PlayingCard rank="A" suit="heart" static className="w-20 -rotate-[18deg]" />
+      </div>
+      <div aria-hidden className="pointer-events-none absolute right-[4%] top-24 hidden lg:block">
+        <PlayingCard rank="K" suit="spade" static className="w-20 rotate-[16deg]" />
+      </div>
 
       <div className="relative mx-auto max-w-3xl text-center">
         <Reveal>

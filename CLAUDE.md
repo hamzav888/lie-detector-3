@@ -16,9 +16,16 @@ shows a live truth/deception **percentage** on a dramatic meter for the real que
 Two people, one phone, a tense needle, a big reveal. Readings land on a scale; only
 obvious facts hit 100%. (No heartbeat/pulse/smartwatch claims — do not reintroduce them.)
 
-**Poker Mode** is one mode among several (alongside Party Mode, the leaderboard, etc.):
-two players heads-up across one phone, prompts drawn from a poker deck, whoever keeps the
-straightest face wins. No chips to count, no poker knowledge required.
+**Poker Mode** is one mode among several (alongside Party Mode, etc.), and it means
+exactly one thing: **you're playing a real game of poker, and the app tells you whether
+the player across the table is lying about their hand.** It is *not* a separate
+question-and-answer game, there is no poker-themed question deck, and the app doesn't
+deal cards or run the game — it only reads the opponent while they bet. Party night for
+poker night; never framed as a strategy tool or for anywhere real money is at stake.
+
+**Keep feature copy vague.** Nothing has shipped, so don't promise specific mechanics
+(named leaderboards, question packs, challenge invites, pricing tiers). Describe the
+*feeling* of playing, not the feature list.
 
 ## Tone rules (important)
 - It is **ENTERTAINMENT first**. Frame it as an *edge, not evidence*: a better read than

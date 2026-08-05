@@ -10,6 +10,7 @@ import SocialProof from "@/components/SocialProof";
 import FAQ from "@/components/FAQ";
 import FinalCTA from "@/components/FinalCTA";
 import Footer from "@/components/Footer";
+import StickyCTA from "@/components/StickyCTA";
 
 // The page runs in two voices: party-bright everywhere, poker for the
 // Poker Mode stretch. Each marquee matches the section it leads into.
@@ -18,6 +19,7 @@ const PARTY_WORDS = [
   "WHO’S THE BEST LIAR?",
   "SCREENSHOT THE CHAOS",
   "TWO PEOPLE · ONE PHONE",
+  "WHO’S GOT THE POKER FACE?",
   "THE NEEDLE HAS NO CHILL",
   "CAUGHT!!",
 ];
@@ -57,6 +59,7 @@ export default function Home() {
         <FinalCTA />
       </main>
       <Footer />
+      <StickyCTA />
     </>
   );
 }

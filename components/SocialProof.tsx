@@ -5,6 +5,8 @@ import { animate, useInView, useReducedMotion } from "framer-motion";
 import { SITE } from "@/lib/site";
 import { formatCount } from "@/lib/utils";
 import Reveal from "./Reveal";
+import PokerChip from "./PokerChip";
+import Zigzag from "./Zigzag";
 
 export default function SocialProof() {
   const reduce = useReducedMotion();
@@ -27,6 +29,7 @@ export default function SocialProof() {
       id="hype"
       className="relative overflow-hidden bg-ink px-4 py-16 text-white sm:px-6 sm:py-24"
     >
+      <Zigzag fill="#FFF8EE" />
       <div aria-hidden className="pointer-events-none absolute inset-0 bg-dots opacity-[0.12]" />
       <div ref={ref} className="relative mx-auto max-w-4xl text-center">
         <Reveal>
@@ -35,6 +38,11 @@ export default function SocialProof() {
 
         <Reveal delay={0.05}>
           <div className="mt-6">
+            <div aria-hidden className="mb-5 flex items-end justify-center gap-2 sm:gap-3">
+              <PokerChip suit="spade" color="#B6FF2E" edge="#1A1030" className="h-12 w-12 -rotate-12 sm:h-14 sm:w-14" />
+              <PokerChip suit="heart" color="#FF2D95" className="h-14 w-14 sm:h-16 sm:w-16" />
+              <PokerChip suit="diamond" color="#FFD200" edge="#1A1030" className="h-12 w-12 rotate-12 sm:h-14 sm:w-14" />
+            </div>
             <div className="font-display text-6xl font-extrabold leading-none tracking-tight text-lime sm:text-8xl">
               {formatCount(count)}
             </div>

@@ -19,7 +19,7 @@ const FAQS = [
   },
   {
     q: "Is it free?",
-    a: "There’ll be a free way to play and cause problems, plus some extra-spicy stuff for the truly committed. Waitlist crew gets early access and launch perks first.",
+    a: "There’ll be a free way to play and cause problems. Waitlist crew gets early access and launch perks first — we’ll share the rest closer to launch.",
   },
   {
     q: "How do I actually play?",
@@ -27,7 +27,7 @@ const FAQS = [
   },
   {
     q: "What’s Poker Mode?",
-    a: "It’s the head-to-head mode: two players sit across one phone, draw prompts from the poker deck, and try to lie with a straight face while the meter watches. You don’t need to know poker — there are no chips to count and no hands to memorise, it’s just the highest-stakes way to play. Scroll up to the Poker Mode section for the full rundown.",
+    a: "It’s the same read, pointed at a real poker game. You and your friends play poker exactly like you always do — Poker Mode just watches the player across the table while they bet, so you get a hunch about whether that all-in is the real thing. It’s a party trick for poker night, not a strategy tool, and definitely not for anywhere money seriously changes hands.",
   },
 ];
 

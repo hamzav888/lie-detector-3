@@ -20,7 +20,7 @@ type Feature = {
 const FEATURES: Feature[] = [
   {
     title: "Party Mode",
-    body: "Pass the phone around the circle. Everyone answers, everyone gets exposed. Chaos guaranteed.",
+    body: "Pass the phone around the circle. Everyone answers, everyone gets exposed.",
     bg: "bg-magenta",
     text: "text-white",
     span: "",
@@ -28,26 +28,25 @@ const FEATURES: Feature[] = [
   },
   {
     title: "Poker Mode",
-    body: "The high-stakes one. Sit heads-up across the table, read the tells, and call the bluff — whoever keeps the coldest face takes the pot.",
+    body: "You’re already playing poker — this just tells you whether the player across the table is lying about that hand.",
     bg: "bg-felt",
     text: "text-white",
     span: "sm:col-span-2",
     icon: <IconSuits />,
-    badge: "NEW",
     href: "#poker",
-    linkLabel: "See how Poker Mode plays",
+    linkLabel: "Take a look",
   },
   {
-    title: "‘Best Liar’ Leaderboard",
-    body: "Rank the smoothest operators in your crew. Someone has to wear the crown.",
+    title: "Bragging Rights",
+    body: "Somebody in your crew lies better than the rest. Now you’ll know who.",
     bg: "bg-sun",
     text: "text-ink",
     span: "",
     icon: <IconCrown />,
   },
   {
-    title: "Challenge Your Friends",
-    body: "Send a dare. They can’t say no. May the best liar win.",
+    title: "Two Players, One Phone",
+    body: "No setup, no accounts, no explaining the rules. Just point it and go.",
     bg: "bg-sky",
     text: "text-white",
     span: "",
@@ -55,7 +54,7 @@ const FEATURES: Feature[] = [
   },
   {
     title: "Made to be Screenshotted",
-    body: "Every reveal is a post waiting to happen. Big meter, big number, big group chat energy.",
+    body: "Big meter, big number, big group chat energy.",
     bg: "bg-lime",
     text: "text-ink",
     span: "",
@@ -70,13 +69,12 @@ const FEATURES: Feature[] = [
     icon: <IconShield />,
   },
   {
-    title: "Fresh Question Packs",
-    body: "Wholesome, chaotic, or totally unhinged — new decks of prompts so you never run out of ammo.",
+    title: "Never Runs Dry",
+    body: "There’s always another question, and it’s always the one nobody wanted asked.",
     bg: "bg-white",
     text: "text-ink",
     span: "",
     icon: <IconCards />,
-    badge: "NEW DROPS",
   },
 ];
 
@@ -90,8 +88,7 @@ export default function WhyFun() {
             Built to blow up your group chat
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-lg font-semibold text-ink/70">
-            Party chaos, one-on-one showdowns, and a leaderboard nobody asked for
-            but everybody wants to win.
+            A few ways to play, one guaranteed outcome: somebody gets caught.
           </p>
         </Reveal>
 

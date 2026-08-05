@@ -5,33 +5,30 @@ import Reveal from "./Reveal";
 import PlayingCard from "./PlayingCard";
 import PokerChip from "./PokerChip";
 import SuitIcon from "./Suit";
+import Zigzag from "./Zigzag";
 
-const HAND = [
+const STEPS = [
   {
     n: "1",
-    title: "Ante up",
-    body: "Both players agree, then answer a few easy warm-ups so the app learns your calm baseline.",
+    title: "Prop up the phone",
+    body: "Sit it at the edge of the table where it can see the player you’re up against.",
   },
   {
     n: "2",
-    title: "Deal the question",
-    body: "Draw a card from the deck. The prompt on it is the question you have to answer with a straight face.",
+    title: "Play your game",
+    body: "Nothing changes. Deal, bet, talk trash — it just watches from the rail.",
   },
   {
     n: "3",
-    title: "Read the tells",
-    body: "Blinks, breathing, micro-expressions. The needle climbs while your opponent tries to hold the line.",
-  },
-  {
-    n: "4",
-    title: "Showdown",
-    body: "Flip the reading. Bluff called or ice cold? Loser deals the next hand.",
+    title: "Glance before you call",
+    body: "They shove all in with a straight face. The meter has an opinion about that.",
   },
 ];
 
 /**
- * The poker slice of the site: one loud, felt-green section that owns the
- * high-stakes theme, so the rest of the page can stay party-bright.
+ * The poker slice of the site: one loud, felt-green section. Poker Mode is
+ * simply the app pointed at a real poker game — is the player across the table
+ * bluffing? — not a separate question game.
  */
 export default function PokerMode() {
   const reduce = useReducedMotion();
@@ -41,26 +38,27 @@ export default function PokerMode() {
       id="poker"
       className="relative overflow-hidden bg-felt px-4 py-16 sm:px-6 sm:py-24"
     >
+      <Zigzag fill="#1A1030" />
       <div aria-hidden className="pointer-events-none absolute inset-0 bg-felt-weave" />
       <div aria-hidden className="pointer-events-none absolute inset-0 bg-suits opacity-60" />
 
       <div className="relative mx-auto max-w-6xl">
         <Reveal className="text-center">
-          <span className="eyebrow bg-sun">MODE SPOTLIGHT</span>
+          <span className="eyebrow bg-sun">ONE OF THE MODES</span>
           <h2 className="mt-4 font-display text-4xl font-extrabold leading-[0.95] tracking-tight text-white sm:text-5xl lg:text-6xl">
             <span className="text-outline block">POKER MODE</span>
-            <span className="mt-1 block text-sun text-outline">HEADS-UP, NO MERCY</span>
+            <span className="mt-1 block text-sun text-outline">IS THAT A BLUFF?</span>
           </h2>
           <p className="mx-auto mt-5 max-w-xl text-lg font-bold text-cream/90">
-            Same app, higher stakes. Two players sit across one phone, draw prompts
-            from the deck, and try to lie straight to each other&apos;s face while
-            the meter watches. No chips to count, no rules to learn — just
-            whoever&apos;s got the better poker face.
+            For when you&apos;re playing actual poker. Point the phone at the player
+            across the table and it reads them while they bet — so when someone
+            pushes all in wearing their best nothing-face, you&apos;ve got a hunch
+            instead of a coin flip.
           </p>
         </Reveal>
 
         <div className="mt-12 grid items-center gap-10 lg:grid-cols-2">
-          {/* ── the table ── */}
+          {/* ── the read ── */}
           <Reveal>
             <div className="relative mx-auto max-w-sm">
               {/* chips at the table edge */}
@@ -77,7 +75,7 @@ export default function PokerMode() {
                   className="-ml-6 h-14 w-14 rotate-6"
                 />
               </div>
-              <div aria-hidden className="pointer-events-none absolute -right-1 bottom-2 z-10 sm:-right-5">
+              <div aria-hidden className="pointer-events-none absolute -right-1 bottom-4 z-10 sm:-right-5">
                 <PokerChip
                   suit="diamond"
                   color="#FFD200"
@@ -87,41 +85,49 @@ export default function PokerMode() {
               </div>
 
               <div className="card-pop bg-cream p-6 sm:p-8">
-                <div className="mb-4 flex items-center justify-between">
+                <div className="mb-5 flex items-center justify-between">
                   <span className="chip bg-danger text-white">LIVE READ</span>
                   <span className="font-display text-xs font-extrabold uppercase tracking-widest text-ink/45">
-                    Table 07 · Heads-up
+                    Seat 3 · All in
                   </span>
                 </div>
 
-                {/* the dealt hand */}
-                <div className="flex items-end justify-center gap-2 sm:gap-3">
+                {/* their hand, still face down */}
+                <div className="flex items-end justify-center gap-3">
                   <div className={reduce ? "" : "animate-floaty-slow"}>
-                    <PlayingCard rank="A" suit="spade" static className="w-20 -rotate-[12deg] sm:w-24" />
+                    <PlayingCard suit="spade" showFace={false} static className="w-24 -rotate-[10deg] sm:w-28" />
                   </div>
-                  <div className={reduce ? "-mb-2" : "animate-floaty -mb-2"}>
-                    <PlayingCard rank="Q" suit="heart" static className="w-20 sm:w-24" />
-                  </div>
-                  <div className={reduce ? "" : "animate-floaty-slow"}>
-                    <PlayingCard rank="K" suit="club" static className="w-20 rotate-[12deg] sm:w-24" />
+                  <div className={reduce ? "" : "animate-floaty"}>
+                    <PlayingCard suit="heart" showFace={false} static className="w-24 rotate-[10deg] sm:w-28" />
                   </div>
                 </div>
 
-                <div className="mt-6 rounded-2xl border-[3px] border-ink bg-felt bg-felt-weave p-4 text-center">
-                  <p className="font-display text-lg font-extrabold leading-tight text-cream">
-                    “Have you ever folded a winning hand just to look cool?”
+                {/* the verdict strip */}
+                <div className="mt-6 rounded-2xl border-[3px] border-ink bg-white p-4">
+                  <p className="font-display text-xs font-extrabold uppercase tracking-widest text-ink/45">
+                    Reading them right now
                   </p>
-                  <p className="mt-2 font-display text-xs font-extrabold uppercase tracking-widest text-cream/60">
-                    Sample prompt · Poker deck
-                  </p>
+                  <div className="mt-2 flex items-baseline justify-between">
+                    <span className="font-display text-4xl font-extrabold leading-none text-danger">
+                      87%
+                    </span>
+                    <span className="chip bg-danger text-white">BLUFFING</span>
+                  </div>
+                  <div className="relative mt-3 h-4 rounded-pill border-[3px] border-ink bg-gradient-to-r from-lime via-sun to-danger">
+                    <span
+                      className="absolute -top-1.5 h-6 w-1.5 rounded-pill border-[3px] border-ink bg-ink"
+                      style={{ left: "84%" }}
+                      aria-hidden="true"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
           </Reveal>
 
-          {/* ── how a hand plays ── */}
+          {/* ── how you use it ── */}
           <div className="space-y-3">
-            {HAND.map((step, i) => (
+            {STEPS.map((step, i) => (
               <Reveal key={step.n} delay={i * 0.07}>
                 <motion.article
                   whileHover={reduce ? undefined : { x: 6 }}
@@ -159,8 +165,8 @@ export default function PokerMode() {
 
         <Reveal delay={0.2}>
           <p className="mx-auto mt-10 max-w-2xl text-center font-semibold text-cream/70">
-            Still a party game, still just for laughs — Poker Mode only changes the
-            vibe, not the disclaimer.
+            Still a party game, still just for laughs — bring it to poker night, don&apos;t
+            bring it to a casino floor.
           </p>
         </Reveal>
       </div>
