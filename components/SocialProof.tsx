@@ -47,16 +47,16 @@ export default function SocialProof() {
               {formatCount(count)}
             </div>
             <p className="mt-3 text-xl font-extrabold sm:text-2xl">
-              humans already in line to expose their friends
+              people already in line to expose their friends
             </p>
           </div>
         </Reveal>
 
         <Reveal delay={0.1}>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            <StatChip k="+2,140" v="joined this week" />
-            <StatChip k="47" v="countries waiting" />
-            <StatChip k="½" v="of them will lose" />
+            {SITE.stats.map((s) => (
+              <StatChip key={s.v} k={s.k} v={s.v} />
+            ))}
           </div>
         </Reveal>
 

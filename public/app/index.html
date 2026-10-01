@@ -1,0 +1,455 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#000000">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Tellmeter">
+<meta name="color-scheme" content="dark">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="description" content="Tellmeter reads facial-tension signals against your own calm baseline. On-device, private, for entertainment.">
+<title>Tellmeter</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="stylesheet" href="css/app.css">
+<link rel="stylesheet" href="css/skin-pop.css">
+<script>
+  /* ?skin=pop dresses the app in the website's look (used by the site's live
+     preview). Set before first paint so there is no flash of the dark skin. */
+  (function () {
+    try {
+      var k = new URLSearchParams(location.search).get('skin');
+      if (k === 'pop') {
+        document.documentElement.dataset.skin = 'pop';
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', '#2E7BFF');
+      }
+    } catch (e) {}
+  })();
+</script>
+</head>
+<body data-mode="idle" data-phase="boot">
+
+<!-- ══════════════════════════════ HOME ══════════════════════════════════ -->
+<div class="screen home" id="screenHome">
+  <div class="home-scroll">
+    <header class="home-head">
+      <svg class="home-mark" viewBox="0 0 48 48" aria-hidden="true">
+        <defs><linearGradient id="gHome" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#4FE8D8"/><stop offset="1" stop-color="#3B82F6"/></linearGradient></defs>
+        <rect x="1.5" y="1.5" width="45" height="45" rx="13" fill="url(#gHome)"/>
+        <path d="M8 30 L15 30 L18.5 20 L23 36.5 L27.5 13 L31.5 30 L40 30" fill="none"
+              stroke="#04131a" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <svg class="pop-mark" viewBox="0 0 40 40" aria-hidden="true"><rect x="2" y="2" width="36" height="36" rx="10" fill="#FF2D95" stroke="#1A1030" stroke-width="3"/><path d="M11 27 A9 9 0 0 1 29 27" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/><line x1="20" y1="27" x2="25" y2="18.5" stroke="#fff" stroke-width="3" stroke-linecap="round"/><circle cx="20" cy="27" r="2.6" fill="#fff"/></svg>
+      <button class="iconbtn" id="homeSettings" aria-label="Settings">
+        <svg viewBox="0 0 24 24"><path d="M4 7h10M18.5 7H20M4 17h3M11 17h9M4 12h6M14.5 12H20" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" fill="none"/><circle cx="16.4" cy="7" r="2" stroke="currentColor" stroke-width="1.7" fill="none"/><circle cx="9" cy="17" r="2" stroke="currentColor" stroke-width="1.7" fill="none"/><circle cx="12.4" cy="12" r="2" stroke="currentColor" stroke-width="1.7" fill="none"/></svg>
+      </button>
+    </header>
+
+    <div class="home-hero">
+      <span class="home-tag"><i></i><span class="sk-dark">On-device · for entertainment</span><span class="sk-pop">Lie detector · party edition</span></span>
+      <h1 class="home-title"><span class="ht-a">Can your face</span> <span class="ht-b">keep a secret?</span></h1>
+      <p class="home-sub">It learns your calm face, then watches six signals while you answer.</p>
+    </div>
+
+    <div class="home-meter">
+      <div class="hm-face" id="hmFaceSlot"></div>
+      <svg class="hm-gauge" viewBox="0 50 320 148" aria-hidden="true">
+        <defs>
+          <linearGradient id="hmArcGrad" x1="0" y1="0" x2="1" y2="0">
+            <stop class="hm-s0" offset="0%"/><stop class="hm-s1" offset="30%"/>
+            <stop class="hm-s2" offset="55%"/><stop class="hm-s3" offset="78%"/>
+            <stop class="hm-s4" offset="100%"/>
+          </linearGradient>
+        </defs>
+        <path class="hm-track" d="M40 170 A120 120 0 0 1 280 170"/>
+        <path class="hm-arc" d="M46 170 A114 114 0 0 1 274 170" stroke="url(#hmArcGrad)"/>
+        <text class="hm-lbl hm-lbl-l sk-dark" x="34" y="194">CALM</text>
+        <text class="hm-lbl hm-lbl-r sk-dark" x="286" y="194" text-anchor="end">TENSE</text>
+        <text class="hm-lbl hm-lbl-l sk-pop" x="34" y="194">TRUTH</text>
+        <text class="hm-lbl hm-lbl-r sk-pop" x="286" y="194" text-anchor="end">LIE!!</text>
+        <g id="hmNeedle" transform="rotate(-68.4 160 170)">
+          <path class="hm-needle" d="M160 66 L151 170 L169 170 Z"/>
+          <circle class="hm-hub" cx="160" cy="170" r="15"/>
+          <circle class="hm-hub-dot" cx="160" cy="170" r="5.5"/>
+        </g>
+      </svg>
+      <div class="hm-read"><span class="hm-num" id="hmNum">12</span><span class="hm-pc">%</span></div>
+      <span class="pop-chip" id="hmChip" data-tone="lime">TOO HONEST</span>
+      <p class="hm-cap">Demo needle — nothing is being read yet.</p>
+      <button class="btn btn-primary btn-lg home-start" id="homeStart">Start a reading</button>
+    </div>
+    <p class="home-hint">Twenty calm seconds to learn your face, then ask away.</p>
+
+    <div class="home-recent" id="homeRecent" hidden>
+      <div class="sec-head"><span class="cap">Recent</span>
+        <button class="btn btn-quiet btn-sm" id="homeAllSessions">All sessions</button></div>
+      <div class="hist-rows" id="homeRecentRows"></div>
+    </div>
+
+    <p class="home-foot">
+      <b>For entertainment.</b> Tellmeter measures visible stress, which is not proof of lying.
+      Calm liars and nervous honest people both exist.
+      <button class="linkish" id="homePrivacy">Privacy</button>
+    </p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════ APP ══════════════════════════════════ -->
+<main class="shell screen" id="screenRead" hidden>
+
+  <!-- ─────────────── STAGE ─────────────── -->
+  <section class="stage" id="stage">
+    <video id="cam" playsinline muted autoplay disablepictureinpicture></video>
+    <canvas id="overlay" aria-hidden="true"></canvas>
+    <div class="vignette" aria-hidden="true"></div>
+    <div class="hot-flash" id="hotFlash" aria-hidden="true"></div>
+
+    <!-- top HUD -->
+    <div class="hud-top">
+      <svg class="mark" viewBox="0 0 48 48" aria-hidden="true">
+          <defs>
+            <linearGradient id="gMark" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#4FE8D8"/><stop offset="1" stop-color="#3B82F6"/>
+          </linearGradient>
+        </defs>
+        <rect x="1.5" y="1.5" width="45" height="45" rx="13" fill="url(#gMark)"/>
+        <path d="M8 30 L15 30 L18.5 20 L23 36.5 L27.5 13 L31.5 30 L40 30"
+              fill="none" stroke="#04131a" stroke-width="3.4"
+              stroke-linecap="round" stroke-linejoin="round" opacity=".92"/>
+      </svg>
+      <svg class="pop-mark" viewBox="0 0 40 40" aria-hidden="true"><rect x="2" y="2" width="36" height="36" rx="10" fill="#FF2D95" stroke="#1A1030" stroke-width="3"/><path d="M11 27 A9 9 0 0 1 29 27" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/><line x1="20" y1="27" x2="25" y2="18.5" stroke="#fff" stroke-width="3" stroke-linecap="round"/><circle cx="20" cy="27" r="2.6" fill="#fff"/></svg>
+
+      <button class="iconbtn" id="btnHome" aria-label="Home">
+        <svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="1.9" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+
+      <div class="hud-right">
+        <div class="pill" id="statusPill"><span class="dot" id="dot"></span><span id="statusTxt">Camera off</span></div>
+        <div class="pill pill-q" id="qualPill" hidden>
+          <span class="qbars" id="qBars"><i></i><i></i><i></i><i></i></span><span id="qualTxt">—</span>
+        </div>
+        <button class="iconbtn" id="btnHistory" aria-label="Session history" title="Session history">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" fill="none"/></svg>
+        </button>
+        <button class="iconbtn" id="btnSettings" aria-label="Settings" title="Settings">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M18.5 7H20M4 17h3M11 17h9M4 12h6M14.5 12H20" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" fill="none"/><circle cx="16.4" cy="7" r="2.1" stroke="currentColor" stroke-width="1.9" fill="none"/><circle cx="9" cy="17" r="2.1" stroke="currentColor" stroke-width="1.9" fill="none"/><circle cx="12.4" cy="12" r="2.1" stroke="currentColor" stroke-width="1.9" fill="none"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- covers -->
+    <div class="cover" id="coverStart">
+      <div class="cover-in">
+        <div class="cover-icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8.5A2.5 2.5 0 0 1 5.5 6h1.7l1-1.8a1.6 1.6 0 0 1 1.4-.8h4.8a1.6 1.6 0 0 1 1.4.8l1 1.8h1.7A2.5 2.5 0 0 1 21 8.5v8A2.5 2.5 0 0 1 18.5 19h-13A2.5 2.5 0 0 1 3 16.5z" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12.4" r="3.6" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+        </div>
+        <h2>Camera access</h2>
+        <p>Tellmeter needs the front camera to read facial micro-signals. Video is processed on this device, frame by frame, and never leaves it. Nothing is uploaded, stored, or recorded.</p>
+        <button class="btn btn-primary" id="startBtn">Enable camera</button>
+        <button class="btn btn-quiet btn-sm" id="btnAboutFromStart">How it works</button>
+      </div>
+    </div>
+
+    <div class="cover" id="coverLoad" hidden>
+      <div class="cover-in">
+        <div class="loader"><i></i><i></i><i></i></div>
+        <h2 id="loadTitle">Starting up</h2>
+        <p id="loadTxt">Loading the on-device face model…</p>
+        <div class="loadbar" id="loadBarWrap" hidden><i id="loadBar"></i></div>
+        <p class="loadnote" id="loadNote">The face model downloads once, then runs offline forever.</p>
+      </div>
+    </div>
+
+    <div class="cover" id="coverError" hidden>
+      <div class="cover-in">
+        <div class="cover-icon cover-icon-bad">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8v5.2M12 16.6v.1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+        </div>
+        <h2 id="errTitle">Camera unavailable</h2>
+        <p id="errTxt"></p>
+        <button class="btn btn-primary" id="btnRetry">Try again</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────── INSTRUMENT DOCK ─────────────── -->
+  <aside class="dock" id="dock">
+    <button class="dock-grip" id="dockGrip" aria-expanded="false" aria-controls="dockScroll">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 14l5-5 5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+      <span id="gripLabel">Live trace &amp; signals</span>
+    </button>
+
+    <div class="panel">
+     <div class="panel-scroll" id="dockScroll">
+      <!-- readout -->
+      <section class="readout">
+        <div class="gauge">
+          <svg viewBox="0 0 200 200" aria-hidden="true">
+            <g id="gaugeTicks"></g>
+            <circle class="g-track" cx="100" cy="100" r="82"/>
+            <circle class="g-arc" id="gArcEl" cx="100" cy="100" r="82"/>
+            <circle class="g-tip" id="gTip" cx="100" cy="18" r="2.6"/>
+          </svg>
+          <div class="gauge-center">
+            <div class="pct" id="pct">––</div>
+            <div class="mood-slot" id="moodSlot"></div>
+          </div>
+        </div>
+        <div class="readout-side">
+          <div class="pop-row"><span class="pop-num" id="popNum">–</span><span class="pop-chip" id="popChip" data-tone="none">NOT YET</span></div>
+          <div class="verdict" id="verdict">Awaiting baseline</div>
+          <div class="conf" id="confTxt">Calibrate to begin</div>
+        </div>
+      </section>
+
+      <!-- polygraph strip -->
+      <section class="sec-trace">
+        <div class="sec-head">
+          <span class="cap">Live trace</span>
+          <span class="cap" id="stripLegend">drift from baseline</span>
+        </div>
+        <canvas id="chart" aria-label="Rolling chart of six deviation signals"></canvas>
+      </section>
+
+      <!-- signal bars -->
+      <section class="sec-signals">
+        <div class="sec-head">
+          <span class="cap">Signals</span>
+          <button class="infobtn" id="btnSigInfo" aria-label="What do these mean?">?</button>
+        </div>
+        <div id="sigRows"></div>
+        <p class="deadband-note">The tick on each track marks the dead band. Movement inside it is ignored.</p>
+      </section>
+     </div>
+    </div>
+
+    <!-- primary actions -->
+    <div class="actionbar">
+      <button class="btn btn-primary btn-lg" id="primaryBtn" disabled>Calibrate baseline</button>
+      <div class="action-row">
+        <button class="btn btn-ghost" id="btnRecal" disabled>Recalibrate</button>
+        <button class="btn btn-ghost" id="btnEndSession" disabled>End session</button>
+      </div>
+      <p class="disclaimer-mini">For entertainment. Reads stress, not truth.</p>
+    </div>
+  </aside>
+</main>
+
+<!-- ═══════════════════════ PHASE OVERLAY (countdown) ═══════════════════════ -->
+<div class="phase" id="phase" hidden>
+  <div class="phase-inner">
+    <div class="ring-timer">
+      <svg viewBox="0 0 132 132" aria-hidden="true">
+        <circle class="rt-bg" cx="66" cy="66" r="59"/>
+        <circle class="rt-fg" id="rtFg" cx="66" cy="66" r="59"/>
+      </svg>
+      <div class="rt-num" id="phaseCount">20</div>
+    </div>
+    <div class="phase-title" id="phaseTitle">Sit relaxed and look at the camera</div>
+    <div class="phase-sub" id="phaseSub">Learning your honest baseline…</div>
+    <button class="btn btn-ghost" id="btnAbort">Cancel</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ RESULT SHEET ══════════════════════════════ -->
+<div class="sheet" id="sheetResult" hidden aria-hidden="true">
+  <div class="sheet-scrim" data-close="sheetResult"></div>
+  <div class="sheet-card sheet-result" role="dialog" aria-modal="true" aria-labelledby="rVerdict">
+    <div class="sheet-grip"></div>
+    <div class="result-hero" id="resultHero">
+      <div class="r-face-slot" id="rFaceSlot"></div>
+      <div class="result-band" id="rBand">reading</div>
+      <span class="pop-chip r-chip" id="rChip" data-tone="lime">SMOOTH</span>
+      <div class="result-pct" id="rPct">0</div>
+      <div class="result-verdict" id="rVerdict"></div>
+      <div class="result-meta" id="rMeta"></div>
+    </div>
+
+    <label class="qlabel">
+      <span>Question</span>
+      <input id="rTitle" type="text" maxlength="90" placeholder="Name this question (optional)" autocomplete="off" autocapitalize="sentences">
+    </label>
+
+    <div class="result-bars" id="rBars"></div>
+
+    <ul class="result-notes" id="rList"></ul>
+
+    <div class="sheet-actions">
+      <button class="btn btn-ghost" id="rDiscard">Discard</button>
+      <button class="btn btn-primary" id="rAgain">Ask another</button>
+    </div>
+    <p class="sheet-fine">Saved to this session on your device only.</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ HISTORY SHEET ═════════════════════════════ -->
+<div class="sheet" id="sheetHistory" hidden aria-hidden="true">
+  <div class="sheet-scrim" data-close="sheetHistory"></div>
+  <div class="sheet-card" role="dialog" aria-modal="true" aria-labelledby="histTitle">
+    <div class="sheet-grip"></div>
+    <div class="sheet-head">
+      <h2 id="histTitle">Sessions</h2>
+      <button class="iconbtn" data-close="sheetHistory" aria-label="Close">
+        <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div id="histBody" class="hist-body"></div>
+    <div class="sheet-actions">
+      <button class="btn btn-ghost btn-danger" id="histClear">Delete all</button>
+      <button class="btn btn-ghost" id="histShare">Share summary</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ SETTINGS SHEET ════════════════════════════ -->
+<div class="sheet" id="sheetSettings" hidden aria-hidden="true">
+  <div class="sheet-scrim" data-close="sheetSettings"></div>
+  <div class="sheet-card" role="dialog" aria-modal="true" aria-labelledby="setTitle">
+    <div class="sheet-grip"></div>
+    <div class="sheet-head">
+      <h2 id="setTitle">Settings</h2>
+      <button class="iconbtn" data-close="sheetSettings" aria-label="Close">
+        <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+
+    <div class="set-group">
+      <h3>Response</h3>
+      <div class="set-list">
+        <div class="set-row set-stack">
+          <div><span class="set-name">Sensitivity</span><span class="set-hint" id="profBlurb">&nbsp;</span></div>
+          <div class="seg seg-wide" id="setProfile" role="radiogroup" aria-label="Sensitivity">
+            <button data-v="steady" role="radio">Steady</button>
+            <button data-v="balanced" role="radio">Balanced</button>
+            <button data-v="keen" role="radio">Keen</button>
+          </div>
+        </div>
+      </div>
+      <p class="set-note">Changes how hard a corroborated reaction pushes the needle. The dead band,
+      the baseline statistics and the one-signal-never-convicts rule are identical in all three.</p>
+    </div>
+
+    <div class="set-group">
+      <h3>Timing</h3>
+      <div class="set-list">
+        <div class="set-row set-stack">
+          <div><span class="set-name">Baseline length</span><span class="set-hint">Longer is more stable. Default 20s.</span></div>
+          <div class="range-wrap"><input type="range" id="setCalib" min="10" max="40" step="5"><output id="outCalib">20s</output></div>
+        </div>
+        <div class="set-row set-stack">
+          <div><span class="set-name">Answer window</span><span class="set-hint">How long each question is read. Default 8s.</span></div>
+          <div class="range-wrap"><input type="range" id="setAsk" min="5" max="20" step="1"><output id="outAsk">8s</output></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="set-group">
+      <h3>Feel</h3>
+      <div class="set-list">
+        <div class="set-row"><div><span class="set-name">Haptics</span><span class="set-hint">Taps on countdowns and results.</span></div>
+          <label class="sw"><input type="checkbox" id="setHaptics"><i></i></label></div>
+        <div class="set-row"><div><span class="set-name">Sound</span><span class="set-hint">Ticks and result tones.</span></div>
+          <label class="sw"><input type="checkbox" id="setSound"><i></i></label></div>
+        <div class="set-row"><div><span class="set-name">Reduce motion</span><span class="set-hint">Calms animation and the live trace.</span></div>
+          <label class="sw"><input type="checkbox" id="setCalm"><i></i></label></div>
+      </div>
+    </div>
+
+    <div class="set-group">
+      <h3>Camera overlay</h3>
+      <div class="set-list">
+        <div class="set-row set-stack"><div><span class="set-name">Face mesh</span><span class="set-hint">What's drawn over your face.</span></div>
+          <div class="seg seg-wide" id="setMesh" role="radiogroup">
+            <button data-v="off" role="radio">Off</button><button data-v="contours" role="radio">Contours</button><button data-v="full" role="radio">Full</button>
+          </div></div>
+        <div class="set-row"><div><span class="set-name">Mirror preview</span><span class="set-hint">Show yourself as in a mirror.</span></div>
+          <label class="sw"><input type="checkbox" id="setMirror"><i></i></label></div>
+      </div>
+    </div>
+
+    <div class="set-group">
+      <h3>About</h3>
+      <div class="set-static" id="aboutBody"></div>
+      <div class="set-links">
+        <button class="btn btn-ghost btn-sm" id="btnShowIntro">Replay intro</button>
+        <button class="btn btn-ghost btn-sm" id="btnPrivacy">Privacy</button>
+      </div>
+      <p class="sheet-fine" id="verLine"></p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ INFO SHEET ════════════════════════════════ -->
+<div class="sheet" id="sheetInfo" hidden aria-hidden="true">
+  <div class="sheet-scrim" data-close="sheetInfo"></div>
+  <div class="sheet-card" role="dialog" aria-modal="true" aria-labelledby="infoTitle">
+    <div class="sheet-grip"></div>
+    <div class="sheet-head">
+      <h2 id="infoTitle">What's being measured</h2>
+      <button class="iconbtn" data-close="sheetInfo" aria-label="Close">
+        <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div id="infoBody" class="info-body"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ ONBOARDING ════════════════════════════════ -->
+<div class="onboard" id="onboard" hidden>
+  <div class="ob-track" id="obTrack">
+
+    <section class="ob-page">
+      <div class="ob-art ob-art-1">
+        <svg viewBox="0 0 220 160" aria-hidden="true">
+          <defs><linearGradient id="obg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4FE8D8"/><stop offset="1" stop-color="#3B82F6"/></linearGradient></defs>
+          <path class="ob-line" d="M10 96 L52 96 L66 62 L84 124 L102 40 L118 96 L210 96" fill="none" stroke="url(#obg1)" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle class="ob-pen" cx="210" cy="96" r="5.5" fill="#4FE8D8"/>
+        </svg>
+      </div>
+      <h2>It learns <em>your</em> normal first</h2>
+      <p>Twenty calm seconds build a personal baseline from six facial and motion signals. Everything after that is measured as drift from that baseline — not against some average stranger.</p>
+    </section>
+
+    <section class="ob-page">
+      <div class="ob-art ob-art-2">
+        <svg viewBox="0 0 220 160" aria-hidden="true">
+          <g id="obBars"></g>
+        </svg>
+      </div>
+      <h2>One signal never convicts</h2>
+      <p>A shrug, a scratch, a passing cloud — any single spike gets discounted hard. The index only climbs when several independent signals move together, and it's pulled back toward neutral whenever the camera read is poor.</p>
+    </section>
+
+    <section class="ob-page">
+      <div class="ob-art ob-art-3">
+        <svg viewBox="0 0 220 160" aria-hidden="true">
+          <rect x="66" y="26" width="88" height="108" rx="16" fill="none" stroke="#2BD4C4" stroke-width="2.6"/>
+          <path d="M92 74v-12a18 18 0 0 1 36 0v12" fill="none" stroke="#2BD4C4" stroke-width="2.6"/>
+          <rect x="84" y="74" width="52" height="42" rx="9" fill="#2BD4C4" opacity=".18"/>
+          <circle cx="110" cy="92" r="5" fill="#2BD4C4"/><path d="M110 97v8" stroke="#2BD4C4" stroke-width="2.6" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <h2>Nothing leaves this device</h2>
+      <p>The face model runs offline, inside the app. No frame, no landmark and no score is ever uploaded — there's no account and no server. Readings you save live in local storage and you can wipe them any time.</p>
+      <div class="ob-warn">
+        <b>This is entertainment.</b> It measures visible stress and nervousness, which is genuinely informative — but stress is not proof of lying. Calm liars and anxious honest people both exist. Don't use it to make decisions about anyone.
+      </div>
+    </section>
+  </div>
+
+  <div class="ob-foot">
+    <div class="ob-dots" id="obDots"><i class="on"></i><i></i><i></i></div>
+    <button class="btn btn-primary btn-lg" id="obNext">Continue</button>
+    <button class="btn btn-quiet btn-sm" id="obSkip">Skip</button>
+  </div>
+</div>
+
+<div class="toast" id="toast" hidden></div>
+
+<script type="module" src="js/ui.js"></script>
+</body>
+</html>

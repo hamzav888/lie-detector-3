@@ -2,11 +2,17 @@
 
 import { useId, useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { SITE, waitlistEndpoint } from "@/lib/site";
 
-type Status = "idle" | "loading" | "success" | "error";
+type Status = "idle" | "loading" | "success" | "error" | "unconfigured";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+/**
+ * Waitlist signup. The site is fully static (GitHub Pages), so the form posts
+ * straight from the browser to Formspree or any JSON endpoint — see
+ * `waitlistEndpoint()` in lib/site.ts and .env.local.example.
+ */
 export default function WaitlistForm({
   variant = "hero",
   source = "hero",
@@ -30,9 +36,24 @@ export default function WaitlistForm({
     e.preventDefault();
     if (status === "loading") return;
 
-    if (!EMAIL_RE.test(email)) {
+    if (!EMAIL_RE.test(email) || email.length > 254) {
       setStatus("error");
       setMessage("Hmm, that email looks a little sus. Try again?");
+      return;
+    }
+
+    // Bots fill the hidden field; people never see it. Pretend it worked.
+    if (company) {
+      setStatus("success");
+      return;
+    }
+
+    const endpoint = waitlistEndpoint();
+    if (!endpoint) {
+      setStatus("unconfigured");
+      setMessage(
+        "The list isn’t taking names quite yet — follow along below and we’ll open the doors soon.",
+      );
       return;
     }
 
@@ -40,29 +61,19 @@ export default function WaitlistForm({
     setMessage("");
 
     try {
-      const res = await fetch("/api/waitlist", {
+      const res = await fetch(endpoint, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, source, company }),
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({ email: email.trim().toLowerCase(), source }),
       });
-      const data = (await res.json().catch(() => ({}))) as {
-        ok?: boolean;
-        error?: string;
-      };
-
-      if (!res.ok || !data.ok) {
-        throw new Error(data.error || "Something glitched. Try again in a sec.");
-      }
+      if (!res.ok) throw new Error("Our list hiccuped. Please try again in a moment.");
 
       setStatus("success");
-      setMessage("You're in line! We'll ping you the second it drops.");
       onSuccess?.();
     } catch (err) {
       setStatus("error");
       setMessage(
-        err instanceof Error
-          ? err.message
-          : "Something glitched. Try again in a sec.",
+        err instanceof Error ? err.message : "Something glitched. Try again in a sec.",
       );
     }
   }
@@ -75,9 +86,7 @@ export default function WaitlistForm({
         initial={reduce ? false : { scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ type: "spring", stiffness: 400, damping: 16 }}
-        className={`card-pop ${
-          big ? "p-5 sm:p-6" : "p-5"
-        } bg-lime text-ink`}
+        className={`card-pop ${big ? "p-5 sm:p-6" : "p-5"} bg-lime text-ink`}
         role="status"
         aria-live="polite"
       >
@@ -99,7 +108,7 @@ export default function WaitlistForm({
               YOU&apos;RE IN LINE!
             </p>
             <p className="mt-1 font-semibold text-ink/80">
-              We&apos;ll ping <span className="font-extrabold">{email}</span> the
+              We&apos;ll email <span className="font-extrabold">{email}</span> the
               second it drops. Now go recruit your most suspicious friend.
             </p>
             <ShareButton />
@@ -115,11 +124,7 @@ export default function WaitlistForm({
       noValidate
       className={`w-full ${big ? "max-w-xl" : "max-w-lg"}`}
     >
-      <div
-        className={`flex flex-col gap-3 sm:flex-row ${
-          big ? "" : "sm:gap-2"
-        }`}
-      >
+      <div className={`flex flex-col gap-3 sm:flex-row ${big ? "" : "sm:gap-2"}`}>
         <div className="flex-1">
           <label htmlFor={inputId} className="sr-only">
             Email address
@@ -134,7 +139,7 @@ export default function WaitlistForm({
             value={email}
             onChange={(e) => {
               setEmail(e.target.value);
-              if (status === "error") setStatus("idle");
+              if (status !== "idle") setStatus("idle");
             }}
             aria-invalid={invalid}
             aria-describedby={message ? statusId : undefined}
@@ -144,7 +149,7 @@ export default function WaitlistForm({
           />
         </div>
 
-        {/* honeypot — hidden from humans, catches bots */}
+        {/* honeypot — invisible to people, irresistible to bots */}
         <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
           <label htmlFor={`${inputId}-company`}>Company</label>
           <input
@@ -160,9 +165,7 @@ export default function WaitlistForm({
           type="submit"
           whileTap={{ scale: 0.95 }}
           disabled={status === "loading"}
-          className={`btn-pop bg-magenta text-white disabled:opacity-70 ${
-            big ? "text-xl" : ""
-          }`}
+          className={`btn-pop bg-magenta text-white disabled:opacity-70 ${big ? "text-xl" : ""}`}
         >
           {status === "loading" ? (
             <span className="inline-flex items-center gap-2">
@@ -175,16 +178,16 @@ export default function WaitlistForm({
       </div>
 
       <AnimatePresence mode="wait">
-        {message && status === "error" && (
+        {message && (status === "error" || status === "unconfigured") && (
           <motion.p
-            key="err"
+            key={status}
             id={statusId}
-            role="alert"
-            aria-live="assertive"
+            role={status === "error" ? "alert" : "status"}
+            aria-live={status === "error" ? "assertive" : "polite"}
             initial={reduce ? false : { opacity: 0, y: -4 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            className="mt-2 pl-2 font-bold text-danger-deep"
+            className={`mt-2 pl-2 font-bold ${status === "error" ? "text-danger-deep" : "text-ink/70"}`}
           >
             {message}
           </motion.p>
@@ -192,7 +195,7 @@ export default function WaitlistForm({
       </AnimatePresence>
 
       <p className="mt-2 pl-2 text-sm font-semibold text-ink/55">
-        No spam, ever. Just one “it&apos;s live!” text. Unsubscribe anytime.
+        No spam, ever. One “it&apos;s live” email, then we leave you alone.
       </p>
     </form>
   );
@@ -211,9 +214,9 @@ function ShareButton() {
   const [copied, setCopied] = useState(false);
   async function share() {
     const shareData = {
-      title: "Lie Detector App",
+      title: SITE.name,
       text: "I just skipped the line for the funniest lie-detector party app. Get in before me.",
-      url: typeof window !== "undefined" ? window.location.href : "",
+      url: typeof window !== "undefined" ? window.location.href : SITE.url,
     };
     try {
       if (navigator.share) {
@@ -224,15 +227,11 @@ function ShareButton() {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      /* user cancelled — no-op */
+      /* user cancelled — nothing to do */
     }
   }
   return (
-    <button
-      type="button"
-      onClick={share}
-      className="btn-pop mt-3 bg-white text-ink shadow-pop-sm"
-    >
+    <button type="button" onClick={share} className="btn-pop mt-3 bg-white text-ink shadow-pop-sm">
       {copied ? "LINK COPIED!" : "CHALLENGE A FRIEND"}
     </button>
   );

@@ -28,13 +28,14 @@ const FEATURES: Feature[] = [
   },
   {
     title: "Poker Mode",
-    body: "You’re already playing poker — this just tells you whether the player across the table is lying about that hand.",
+    body: "Online poker night with your friends, cameras on. It reads every player while they bet, and every all-in turns into a debate.",
+    badge: "COMING SOON",
     bg: "bg-felt",
     text: "text-white",
     span: "sm:col-span-2",
     icon: <IconSuits />,
     href: "#poker",
-    linkLabel: "Take a look",
+    linkLabel: "See how it works",
   },
   {
     title: "Bragging Rights",

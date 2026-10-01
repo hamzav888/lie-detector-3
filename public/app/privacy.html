@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#05070c">
+<title>Privacy Policy — Tellmeter</title>
+<style>
+  :root{--bg:#05070c;--ink:#eef3fa;--ink2:#aebbcd;--muted:#7688a0;--teal:#4FE8D8;--line:rgba(255,255,255,.09)}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);line-height:1.65;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    padding:calc(env(safe-area-inset-top,0px) + 44px) 24px calc(env(safe-area-inset-bottom,0px) + 60px)}
+  .wrap{max-width:660px;margin:0 auto}
+  .badge{display:inline-flex;align-items:center;gap:9px;margin-bottom:26px}
+  .badge svg{width:30px;height:30px;border-radius:9px}
+  .badge span{font-weight:680;font-size:16px;letter-spacing:-.02em}
+  h1{font-size:30px;letter-spacing:-.03em;margin:0 0 6px}
+  .updated{color:var(--muted);font-size:13px;margin-bottom:30px}
+  h2{font-size:16px;letter-spacing:-.01em;margin:30px 0 8px;color:var(--teal)}
+  p,li{color:var(--ink2);font-size:14.5px}
+  p{margin:0 0 12px}
+  ul{margin:0 0 12px;padding-left:20px}
+  li{margin-bottom:6px}
+  b{color:var(--ink)}
+  .callout{border:1px solid var(--line);background:rgba(255,255,255,.03);border-radius:16px;
+    padding:18px 20px;margin:24px 0}
+  .callout p:last-child{margin:0}
+  .hi{border-color:rgba(79,232,216,.3);background:rgba(79,232,216,.05)}
+  footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px}
+  a{color:var(--teal)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="badge">
+    <svg viewBox="0 0 48 48" aria-hidden="true">
+      <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4FE8D8"/><stop offset="1" stop-color="#3B82F6"/></linearGradient></defs>
+      <rect x="1.5" y="1.5" width="45" height="45" rx="13" fill="url(#g)"/>
+      <path d="M8 30 L15 30 L18.5 20 L23 36.5 L27.5 13 L31.5 30 L40 30" fill="none" stroke="#04131a" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <span>Tellmeter</span>
+  </div>
+
+  <h1>Privacy Policy</h1>
+  <div class="updated">Last updated: 20 September 2026</div>
+
+  <div class="callout hi">
+    <p><b>The short version:</b> Tellmeter runs entirely on your device. It has no server, no account and no analytics.
+    No video frame, face landmark, score or setting is ever transmitted anywhere. There is nothing for us to see,
+    sell or hand over, because nothing reaches us.</p>
+  </div>
+
+  <h2>What the app accesses</h2>
+  <ul>
+    <li><b>Camera.</b> Tellmeter needs the front camera to measure facial signals. Frames are analysed in memory,
+    one at a time, and discarded immediately. Nothing is recorded to disk and nothing is uploaded. The camera is
+    only active while the app is open and in the foreground.</li>
+    <li><b>Nothing else.</b> No microphone, location, contacts, photos, health data, advertising identifier or
+    device identifier is requested or used.</li>
+  </ul>
+
+  <h2>What is stored on your device</h2>
+  <p>Two things, both local and both optional to keep:</p>
+  <ul>
+    <li><b>Settings</b> — your timing, sound, haptics and overlay preferences.</li>
+    <li><b>Saved readings</b> — the label you typed, the resulting index, the per-signal numbers and a timestamp.
+    Never any image or video.</li>
+  </ul>
+  <p>These live in the app's private storage. Delete them any time with <b>Settings → Sessions → Delete all</b>,
+  or by deleting the app. They are not included in any cloud backup we control, and we have no access to them.</p>
+
+  <h2>Data we collect</h2>
+  <p>None. There is no analytics SDK, no crash reporter, no advertising network and no third-party service of any
+  kind embedded in this app. The face model and all its code ship inside the app bundle, so the app makes no
+  network requests during normal use.</p>
+
+  <h2>Sharing</h2>
+  <p>If you tap <b>Share summary</b>, the app hands a plain-text summary of your saved readings to the operating
+  system share sheet, and you choose where it goes. Nothing is shared unless you initiate it.</p>
+
+  <h2>Children</h2>
+  <p>Tellmeter is not directed at children under 13 and collects no personal information from anyone.</p>
+
+  <h2>What Tellmeter is not</h2>
+  <div class="callout">
+    <p>Tellmeter measures <b>visible signs of stress</b> — blink rate, gaze movement, brow and mouth tension, head
+    and body motion — relative to a baseline it learns from you. It is an entertainment product.</p>
+    <p>It is <b>not</b> a lie detector, not a polygraph, not a medical or psychological device, and not evidence of
+    anything about any person. Stress is not deception. Do not use it to make decisions about anyone.</p>
+  </div>
+
+  <h2>Changes</h2>
+  <p>If this policy changes, the updated version will be published at this address and the date above will change.</p>
+
+  <h2>Contact</h2>
+  <p>Questions about privacy: <a href="mailto:privacy@example.com">privacy@example.com</a></p>
+
+  <footer>
+    Tellmeter · on-device processing · no account, no upload<br>
+    <a href="index.html">← Back to the app</a>
+  </footer>
+</div>
+</body>
+</html>

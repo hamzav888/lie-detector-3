@@ -2,6 +2,8 @@ import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
 import Marquee from "@/components/Marquee";
 import HowItWorks from "@/components/HowItWorks";
+import LivePreview from "@/components/LivePreview";
+import Signals from "@/components/Signals";
 import WhyFun from "@/components/WhyFun";
 import PokerMode from "@/components/PokerMode";
 import InteractiveTeaser from "@/components/InteractiveTeaser";
@@ -17,7 +19,7 @@ import StickyCTA from "@/components/StickyCTA";
 const PARTY_WORDS = [
   "CHALLENGE YOUR FRIENDS",
   "WHO’S THE BEST LIAR?",
-  "SCREENSHOT THE CHAOS",
+  "TRY IT IN YOUR BROWSER",
   "TWO PEOPLE · ONE PHONE",
   "WHO’S GOT THE POKER FACE?",
   "THE NEEDLE HAS NO CHILL",
@@ -48,6 +50,8 @@ export default function Home() {
         <Hero />
         <Marquee items={PARTY_WORDS} className="bg-lime text-ink" />
         <HowItWorks />
+        <LivePreview />
+        <Signals />
         <WhyFun />
         <Marquee items={POKER_WORDS} className="bg-ink text-sun" icon="suits" />
         <PokerMode />

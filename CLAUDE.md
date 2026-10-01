@@ -1,102 +1,106 @@
-# CLAUDE.md — Lie Detector App (waitlist landing)
+# CLAUDE.md — Lie Detector App (landing site + live preview)
 
-Project context for anyone (human or AI) working on this repo.
+Project context for anyone, human or AI, working on this folder.
 
 ## What this is
-A **pre-launch, single-page waitlist landing site** for the **Lie Detector App**, a
-playful mobile **entertainment** app launching soon on iOS & Android. Built by
-**Matrixx Agency**. The site's only job: **build hype and capture email signups**.
+The **pre-launch landing site** for the **Lie Detector App**, a camera-based party game,
+plus a **live preview of the real app** embedded on the page. Built by **Matrixx Agency**.
+Two jobs: let people try it, and capture waitlist emails.
 
-> Wordmark reads `Lie Detector App`. Swap `SITE.name` for a real brand later — see README "Swap-in list".
+> Wordmark reads `Lie Detector App`. Swap `SITE.name` when the real brand lands.
 
 ## The product (for accurate copy)
-A social party game. Using the phone camera it reads stress-y signals — eyes/blinks,
-breathing, micro-expressions — learns your calm **baseline** from easy questions, then
-shows a live truth/deception **percentage** on a dramatic meter for the real questions.
-Two people, one phone, a tense needle, a big reveal. Readings land on a scale; only
-obvious facts hit 100%. (No heartbeat/pulse/smartwatch claims — do not reintroduce them.)
+A social party game. The phone camera measures **six signals** — blink rate, gaze, brow
+tension, mouth/jaw tension, head motion, body motion — against a **baseline** it learns
+from the person in twenty calm seconds. Each signal is a robust deviation from *their own*
+normal; the index only moves when several agree. Readings land on a 0–100 scale with a
+verdict and a list of which signals moved. **No heart rate, pulse, breathing or smartwatch
+claims — the app doesn't do those. Don't reintroduce them.**
 
-**Poker Mode** is one mode among several (alongside Party Mode, etc.), and it means
-exactly one thing: **you're playing a real game of poker, and the app tells you whether
-the player across the table is lying about their hand.** It is *not* a separate
-question-and-answer game, there is no poker-themed question deck, and the app doesn't
-deal cards or run the game — it only reads the opponent while they bet. Party night for
-poker night; never framed as a strategy tool or for anywhere real money is at stake.
+**Poker Mode** is **coming soon** and means one thing in the marketing: online poker night
+with your friends. Everyone's on camera, everyone opts in, and the app reads each player
+while they bet — it makes a friendly game more fun. **It is not in the live preview**, so
+the copy must always say it's coming, never imply you can try it now. Friendly games and
+laughs only — never a strategy tool, never for real-money tables.
 
-**Keep feature copy vague.** Nothing has shipped, so don't promise specific mechanics
-(named leaderboards, question packs, challenge invites, pricing tiers). Describe the
-*feeling* of playing, not the feature list.
+**Keep feature copy honest and specific where it describes the preview, vague where it
+describes the unshipped native apps.** Describe the feeling of playing, not a feature list.
 
-## Tone rules (important)
-- It is **ENTERTAINMENT first**. Frame it as an *edge, not evidence*: a better read than
-  going in blind, but **never** claim it truly/scientifically detects lies, and never
-  imply it should be used to make real decisions about a person.
-- Be funny, loud, shameless ("it only has to be right about half the time").
-- Always keep a **subtle honest disclaimer** nearby.
-- **Privacy-friendly**: on-device, consent-based — say so.
-- No emoji used as characters/IP. All faces/characters/suits are **drawn in CSS/SVG**.
+## Tone rules
+- **Entertainment first.** An *edge, not evidence*. Never claim it scientifically detects
+  lies; never imply it should drive real decisions about a person.
+- Loud, funny, a little shameless. Always a subtle honest disclaimer nearby.
+- **Privacy-friendly**: on-device, consent-based. Say so.
+- No emoji used as characters. All faces, suits and icons are **CSS/SVG**.
 
-## Two voices on one page (important)
-The page deliberately runs in **two themes**, and they should stay separated:
-1. **Party / general (the default)** — bright POP palette, party-game copy ("ask the
-   spicy questions", "screenshot the chaos"). This owns Hero, HowItWorks, the modes grid,
-   the demo, IsItReal, SocialProof, FAQ, FinalCTA, Footer.
-2. **Poker (one loud slice)** — the felt-green `#poker` section plus the poker card in the
-   modes grid, the suit marquees that bracket it, and the Poker Mode FAQ entry. Poker
-   hooks live here: "read the tells", "call the bluff", "ante up", "showdown".
+## Two voices on one page
+1. **Party / general (default)** — bright POP palette. Hero, HowItWorks, LivePreview,
+   Signals, WhyFun, InteractiveTeaser, IsItReal, SocialProof, FAQ, FinalCTA, Footer.
+2. **Poker (one slice)** — the felt-green `#poker` section, its card in the modes grid, the
+   suit marquees that bracket it, and the Poker Mode FAQ entry.
 
-Don't bleed poker language into the general sections (or vice versa) — the contrast is
-the point. Poker is a *mode*, not the brand. No real casino/brand IP.
+Don't bleed poker language into general sections or vice versa. Poker is a mode, not the
+brand. No real casino or brand IP.
 
-## Goal / conversion
-Every section drives to **ONE action**: join the waitlist / early access.
-Email capture is the hero element and reappears in the final CTA (`#join`).
-Lean into the social hook: deal friends in, "best poker face," screenshot-and-share.
+## Conversion
+Every section drives to **one action**: join the waitlist (`#join`), with the live preview
+(`#preview`) as the proof point on the way. The hero form reappears in the final CTA.
 
-## Stack
-- **Next.js 14 (App Router) + TypeScript**
-- **Tailwind CSS** (tokens in `tailwind.config.ts`)
-- **Framer Motion** (springs, confetti, stamp, reveals; respects reduced-motion)
-- Deploy target: **Vercel**. Mobile-first, fully responsive.
-- Waitlist form → `app/api/waitlist/route.ts` (provider switch w/ TODOs).
+## Stack and hosting
+- **Next.js 14 (App Router) + TypeScript**, **Tailwind**, **Framer Motion**.
+- **Static export** (`output: "export"`) deployed to **GitHub Pages** by
+  `.github/workflows/deploy.yml`. There is **no server**: no API routes, no server
+  actions, nothing dynamic at request time. Anything that needs a backend must be a
+  client-side call to a third party.
+- **`basePath`** comes from `NEXT_PUBLIC_BASE_PATH` (set by the workflow). Next prefixes
+  `<Link>` and its own assets. Plain `<a href>`, `<iframe src>` and anything in
+  metadata must go through `withBase()` / `APP_PATH` in `lib/paths.ts`.
+- The waitlist form posts from the browser to Formspree or `NEXT_PUBLIC_WAITLIST_ENDPOINT`
+  (see `lib/site.ts`). With neither configured it shows an honest "not yet" message.
+- `trailingSlash: true` so `/privacy/` resolves to a real `index.html` on Pages.
+
+## The embedded app
+`public/app/` is a verbatim copy of `../app/www` — plain ES modules with no build step,
+relative URLs throughout, so it works at any sub-path. `npm run sync:app` refreshes it.
+Don't edit it here; edit the app and re-sync. It is embedded twice, both times as the
+real, fully playable app in an `<iframe allow="camera">`:
+- `components/LivePreview.tsx` — in a phone frame on the home page. It mounts when the
+  section scrolls into view (no cover, no tap), so the ~13 MB runtime never loads for
+  people who don't scroll to it.
+- `app/play/page.tsx` — full screen inside a slim site bar at `/play/`.
+Links to the app go through `APP_PATH` (`/app/index.html?skin=pop`). The explicit file
+matters because `next dev` doesn't resolve directory indexes under `/public`; `?skin=pop`
+puts the app in this site's look (its own skin, `css/skin-pop.css` in the app). The app
+build no longer contains Poker Night — it's parked in the app project's `extras/poker/` (not part of this repo).
 
 ## Design tokens ("POP / PARTY")
-Defined in `tailwind.config.ts` + `app/globals.css`.
-- **Colors**: `magenta` #FF2D95 · `lime` #B6FF2E · `sun` #FFD200 · `sky` #2E7BFF ·
+In `tailwind.config.ts` and `app/globals.css`.
+- **Colours**: `magenta` #FF2D95 · `lime` #B6FF2E · `sun` #FFD200 · `sky` #2E7BFF ·
   `grape` #8A3FFC · `danger` #FF3B30 · `ink` #1A1030 · `cream` #FFF8EE ·
-  `felt` #0E7A57 (the one "poker table" green — use it for felt surfaces only).
-- **Type**: `font-display` = Baloo 2 (chunky rounded), `font-body` = Nunito.
+  `felt` #0E7A57 (poker surfaces only).
+- **Type**: `font-display` Baloo 2, `font-sans` Nunito (self-hosted via `next/font`).
 - **Shape**: `rounded-blob` / `rounded-pill`, thick `border-[3px] border-ink`.
-- **Shadows**: `shadow-pop*` (hard offset "sticker" shadows).
+- **Shadows**: `shadow-pop*` hard offset "sticker" shadows.
 - **Helpers**: `.btn-pop`, `.card-pop`, `.chip`, `.eyebrow`, `.text-outline`, `.grain`,
-  `.bg-dots`, `.bg-felt-weave` (cross-hatch felt), `.bg-suits` (tiled suit marks).
-- **Motion**: bouncy springs; `animate-marquee/floaty/floaty-slow/chip-bob/wiggle`;
-  `prefers-reduced-motion` honored globally.
+  `.bg-dots`, `.bg-felt-weave`, `.bg-suits`.
+- **Motion**: springs; looping animation only where it's decorative and always off under
+  `prefers-reduced-motion`.
 
 ## Sections (order in `app/page.tsx`)
-Nav → Hero (+ meter) → Marquee (party words) → HowItWorks → WhyFun (modes grid, incl. the
-Poker Mode card) → Marquee (poker words, suits) → **PokerMode** → Marquee (poker words,
-suits) → InteractiveTeaser → IsItReal → SocialProof → FAQ → FinalCTA → Footer.
+Nav → Hero (+ meter) → Marquee (party) → HowItWorks → **LivePreview** → **Signals** →
+WhyFun (modes grid) → Marquee (poker, suits) → PokerMode → Marquee (poker, suits) →
+InteractiveTeaser (the no-camera toy) → IsItReal → SocialProof → FAQ → FinalCTA → Footer.
 
-`<Marquee icon="suits">` swaps star separators for card suits — poker stretch only.
-
-## Signature visual
-`components/Meter.tsx` — the "Truth-o-meter": a semicircular gauge with a **springy
-needle** and a **CSS/SVG face** that morphs from calm → sweating panic as the reading
-climbs. Everything animates off one spring so needle + face + number stay in sync.
-
-## Poker primitives (use only inside the poker slice)
-- `components/PokerMode.tsx` — the `#poker` section itself: felt table, dealt hand, chips,
-  and the four-step hand (Ante up → Deal → Read the tells → Showdown).
-- `components/Suit.tsx` — the four suits as SVG paths (`SuitIcon`, `SuitPath`,
-  `SUIT_COLOR`). Red suits are magenta, black suits are ink. Never use ♠♥♦♣ text glyphs.
-- `components/PlayingCard.tsx` — SVG card in the sticker style (thick ink outline, hard
-  shadow); flips in 3D when `showFace` toggles, `static` for decorative cards.
-- `components/PokerChip.tsx` — SVG chip with dashed edge spots; takes a `suit` or `label`.
-Reuse these instead of drawing new card/chip art.
+## Signature visuals
+- `components/Meter.tsx` — the Truth-o-meter: springy needle + a CSS/SVG face that panics
+  as the reading climbs.
+- `components/LivePreview.tsx` — the phone frame with the real app running inside.
+- `app/play/page.tsx` — the same app, full screen.
+- Poker primitives (`Suit`, `PlayingCard`, `PokerChip`) — reuse these, don't redraw.
 
 ## Conventions
-- Keep it accessible: semantic HTML, labelled controls, visible focus rings, `aria-live`
-  on form status, keyboard-navigable FAQ/accordions, reduced-motion fallbacks.
-- No external images/logos. Build visuals with CSS/SVG.
-- Copy is fun placeholder — tweak freely, keep the disclaimer honest.
+- Accessible: semantic HTML, labelled controls, visible focus rings, `aria-live` status,
+  keyboard-navigable accordions, reduced-motion fallbacks.
+- No external images or logos. Visuals are CSS/SVG.
+- Numbers on the page are either configurable hype (the counter) or true facts (the stat
+  chips). Never add fabricated traffic or country counts.

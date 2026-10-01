@@ -10,25 +10,25 @@ import Zigzag from "./Zigzag";
 const STEPS = [
   {
     n: "1",
-    title: "Prop up the phone",
-    body: "Sit it at the edge of the table where it can see the player you’re up against.",
+    title: "Deal your friends in",
+    body: "Start your usual online game with the crew, wherever everyone happens to be. Cameras on.",
   },
   {
     n: "2",
-    title: "Play your game",
-    body: "Nothing changes. Deal, bet, talk trash — it just watches from the rail.",
+    title: "Everyone opts in",
+    body: "Every player agrees to be read before the first card is dealt. No sneaky reads, ever.",
   },
   {
     n: "3",
-    title: "Glance before you call",
-    body: "They shove all in with a straight face. The meter has an opinion about that.",
+    title: "Watch the table squirm",
+    body: "Somebody shoves all in with a straight face? The needle has an opinion — and now so does everyone else.",
   },
 ];
 
 /**
- * The poker slice of the site: one loud, felt-green section. Poker Mode is
- * simply the app pointed at a real poker game — is the player across the table
- * bluffing? — not a separate question game.
+ * The poker slice of the site: one loud, felt-green section. Poker Mode is the
+ * read brought to online poker night with friends — is that all-in a bluff? It
+ * is coming soon and is not in the live preview; the copy says so.
  */
 export default function PokerMode() {
   const reduce = useReducedMotion();
@@ -44,16 +44,16 @@ export default function PokerMode() {
 
       <div className="relative mx-auto max-w-6xl">
         <Reveal className="text-center">
-          <span className="eyebrow bg-sun">ONE OF THE MODES</span>
+          <span className="eyebrow bg-sun">COMING SOON</span>
           <h2 className="mt-4 font-display text-4xl font-extrabold leading-[0.95] tracking-tight text-white sm:text-5xl lg:text-6xl">
             <span className="text-outline block">POKER MODE</span>
             <span className="mt-1 block text-sun text-outline">IS THAT A BLUFF?</span>
           </h2>
           <p className="mx-auto mt-5 max-w-xl text-lg font-bold text-cream/90">
-            For when you&apos;re playing actual poker. Point the phone at the player
-            across the table and it reads them while they bet — so when someone
-            pushes all in wearing their best nothing-face, you&apos;ve got a hunch
-            instead of a coin flip.
+            Poker night, now online. Pull your friends up to a virtual table, cameras on,
+            and Poker Mode reads every player while they bet. When someone shoves all in
+            wearing their best nothing-face, the whole table gets a needle to argue about.
+            Same game you already love — a lot more drama.
           </p>
         </Reveal>
 
@@ -88,7 +88,7 @@ export default function PokerMode() {
                 <div className="mb-5 flex items-center justify-between">
                   <span className="chip bg-danger text-white">LIVE READ</span>
                   <span className="font-display text-xs font-extrabold uppercase tracking-widest text-ink/45">
-                    Seat 3 · All in
+                    Online table · All in
                   </span>
                 </div>
 
@@ -165,8 +165,9 @@ export default function PokerMode() {
 
         <Reveal delay={0.2}>
           <p className="mx-auto mt-10 max-w-2xl text-center font-semibold text-cream/70">
-            Still a party game, still just for laughs — bring it to poker night, don&apos;t
-            bring it to a casino floor.
+            Poker Mode isn&apos;t in the preview yet — join the waitlist and you&apos;ll hear the
+            second it lands. Built for friendly games with people you know, for laughs. Never
+            for real-money tables.
           </p>
         </Reveal>
       </div>

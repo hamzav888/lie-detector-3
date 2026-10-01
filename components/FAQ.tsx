@@ -7,15 +7,19 @@ import Reveal from "./Reveal";
 const FAQS = [
   {
     q: "Wait… is this a REAL lie detector?",
-    a: "It’s built for entertainment first — but it’s not just random. It reads real stress-y signals (blinks, breathing, micro-expressions) to give you a much better read than going in blind. Think of it as an edge, not evidence: way more telling than a plain guess, but never something to make real decisions about anyone. And honestly? It only has to be right about half the time to ruin friendships.",
+    a: "It’s built for entertainment first — but it isn’t random. It measures six real signals (blink rate, gaze, brow, mouth, head and body movement) against a baseline it learns from you, and it only moves when several of them agree. Think of it as an edge, not evidence: a sharper read than going in blind, never something to make real decisions about anyone. Stress isn’t the same as lying, and it knows that.",
+  },
+  {
+    q: "Can I try it right now?",
+    a: "Yes — the real build is running on this page, in the phone further up, and full screen at /play. Allow the camera, give it twenty calm seconds for the baseline, then ask away. It needs decent light and a face in frame. The first launch downloads the face model once (about 13 MB); after that it runs offline.",
   },
   {
     q: "Is my data private?",
-    a: "Yes, that’s the whole point. The read happens on-device with your consent — your camera feed is processed on your phone, not shipped off to some server. We’re here for the group-chat chaos, not your secrets. Full details will live in our privacy policy at launch.",
+    a: "Yes, that’s the whole point. The read happens on-device with your consent — the camera feed is processed on your phone (or in your browser for the preview), never sent to a server. There’s no account. The only thing we ever ask for is the email you choose to leave on the waitlist. The privacy page has the full picture.",
   },
   {
     q: "When does it come out?",
-    a: "Soon™ — we’re polishing the needle physics as we speak. Drop your email and you’ll be first through the door on both iOS and Android (before your nosiest friend).",
+    a: "Soon — the read is working (you can try it above) and we’re finishing the native iOS and Android apps. Drop your email and you’ll be first through the door, before your nosiest friend.",
   },
   {
     q: "Is it free?",
@@ -23,11 +27,11 @@ const FAQS = [
   },
   {
     q: "How do I actually play?",
-    a: "Two people, one phone. It learns your calm ‘baseline’ from easy warm-up questions, then you ask the spicy ones and watch the meter swing. Screenshot the reveal, post it, run it back.",
+    a: "Two people, one phone. Twenty calm seconds for the baseline, then ask the spicy question and let it read the whole answer. You get a number, a verdict and a list of exactly which tells moved. Screenshot the reveal, post it, run it back.",
   },
   {
     q: "What’s Poker Mode?",
-    a: "It’s the same read, pointed at a real poker game. You and your friends play poker exactly like you always do — Poker Mode just watches the player across the table while they bet, so you get a hunch about whether that all-in is the real thing. It’s a party trick for poker night, not a strategy tool, and definitely not for anywhere money seriously changes hands.",
+    a: "The same read, brought to online poker night. Get your friends around a virtual table with cameras on, everyone opts in, and Poker Mode reads each player while they bet — so every all-in comes with a needle to argue about. It’s coming soon and isn’t in the preview yet. It’s for friendly games and laughs, not a strategy tool, and never for anywhere real money changes hands.",
   },
 ];
 

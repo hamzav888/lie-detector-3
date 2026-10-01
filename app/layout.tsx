@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Baloo_2, Nunito } from "next/font/google";
 import "./globals.css";
 import { SITE } from "@/lib/site";
+import { withBase } from "@/lib/paths";
 
 // Chunky, rounded display face for oversized headlines
 const display = Baloo_2({
@@ -19,33 +20,46 @@ const body = Nunito({
   display: "swap",
 });
 
+const TITLE = `${SITE.name} — Can your face keep a secret?`;
+
+// Next prefixes `basePath` onto file-convention metadata routes itself, so the
+// base must be the bare origin; every path below adds the sub-path explicitly.
+const ORIGIN = new URL(SITE.url).origin;
+// A .png copy of the generated OG image (see `postbuild`) — GitHub Pages serves
+// the extensionless original as octet-stream, which some scrapers reject.
+const OG_IMAGE = { url: withBase("/og.png"), width: 1200, height: 630, alt: TITLE };
+
 export const metadata: Metadata = {
-  metadataBase: new URL(SITE.url),
-  title: `${SITE.name} — Can your face keep a secret?`,
+  metadataBase: new URL(ORIGIN),
+  title: TITLE,
   description: SITE.description,
   applicationName: SITE.name,
+  alternates: { canonical: withBase("/") },
   keywords: [
     "lie detector app",
+    "lie detector game",
     "poker face",
     "bluff game",
-    "truth or dare",
     "party game app",
+    "truth or dare",
     "waitlist",
     "iOS",
     "Android",
-    "social game",
   ],
   openGraph: {
-    title: `${SITE.name} — Can your face keep a secret?`,
+    title: TITLE,
     description: SITE.description,
-    url: SITE.url,
+    url: withBase("/"),
     siteName: SITE.name,
     type: "website",
+    locale: "en_US",
+    images: [OG_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
-    title: `${SITE.name} — Can your face keep a secret?`,
+    title: TITLE,
     description: SITE.description,
+    images: [OG_IMAGE],
   },
   robots: { index: true, follow: true },
 };

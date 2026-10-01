@@ -1,4 +1,6 @@
+import Link from "next/link";
 import Wordmark from "./Wordmark";
+import { APP_PATH } from "@/lib/paths";
 import SuitIcon from "./Suit";
 import { SITE } from "@/lib/site";
 
@@ -19,8 +21,8 @@ export default function Footer() {
             </div>
             <p className="mt-3 font-semibold text-white/70">
               The lie-detector party game that turns your face into a game show —
-              party night, poker night, and a very nosy needle. Coming soon to iOS
-              &amp; Android.
+              party night, poker night, and a very nosy needle. Try the preview now;
+              coming soon to iOS &amp; Android.
             </p>
             <a href="#join" className="btn-pop mt-5 bg-lime text-ink">
               JOIN THE WAITLIST
@@ -48,16 +50,23 @@ export default function Footer() {
 
         {/* Entertainment + privacy disclaimer */}
         <div className="mt-10 rounded-2xl border-[3px] border-white/20 bg-white/5 p-5">
-          <p className="text-sm font-bold text-white/80">
-            ⚠︎ For entertainment only.
+          <p className="flex items-center gap-2 text-sm font-bold text-white/80">
+            <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0" aria-hidden="true">
+              <path d="M12 3 2.5 20h19L12 3Z" fill="#FFD200" stroke="#1A1030" strokeWidth="1.5" strokeLinejoin="round" />
+              <path d="M12 9v5M12 16.5v.1" stroke="#1A1030" strokeWidth="2" strokeLinecap="round" />
+            </svg>
+            For entertainment only.
           </p>
           <p className="mt-1 text-sm font-semibold text-white/60">
             {SITE.name} is a game made for fun. It reads stress-y signals for a
             playful read, but it is <span className="font-bold text-white/80">not</span> a
             scientific lie detector and should never be used to make real
-            decisions about any person. Readings are dramatized for entertainment.
-            The camera-based read runs on your device with your consent — see our
-            privacy policy at launch for details.
+            decisions about any person. Readings are dramatised for entertainment.
+            The camera-based read runs on your device with your consent — the{" "}
+            <Link href="/privacy" className="font-bold text-white/80 underline underline-offset-2 hover:text-white">
+              privacy page
+            </Link>{" "}
+            has the full picture.
           </p>
         </div>
 
@@ -66,8 +75,8 @@ export default function Footer() {
             © {year} {SITE.name}. A pre-launch teaser by {SITE.builtBy}.
           </p>
           <div className="flex gap-4">
-            <a href="#" className="hover:text-white">Privacy</a>
-            <a href="#" className="hover:text-white">Terms</a>
+            <Link href="/privacy" className="hover:text-white">Privacy</Link>
+            <a href={APP_PATH} className="hover:text-white">Live preview</a>
             <a href="#faq" className="hover:text-white">FAQ</a>
           </div>
         </div>

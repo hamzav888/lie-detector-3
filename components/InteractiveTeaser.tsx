@@ -74,13 +74,13 @@ export default function InteractiveTeaser() {
       <div aria-hidden className="pointer-events-none absolute inset-0 bg-dots opacity-30" />
       <div className="relative mx-auto max-w-3xl text-center">
         <Reveal>
-          <span className="eyebrow bg-sun">TRY THE DEMO</span>
+          <span className="eyebrow bg-sun">NO CAMERA? TAP THIS</span>
           <h2 className="mt-4 font-display text-4xl font-extrabold leading-none tracking-tight text-white sm:text-5xl lg:text-6xl">
             Tap it. I dare you.
           </h2>
           <p className="mx-auto mt-3 max-w-lg text-lg font-semibold text-white/85">
-            A tiny taste of the drama (with totally random numbers — the real
-            app actually reads the room).
+            The toy version: random numbers, real drama. When you want the genuine
+            read, the live preview above actually looks at you.
           </p>
         </Reveal>
 
@@ -115,15 +115,15 @@ export default function InteractiveTeaser() {
                 {busy ? "READING YOU…" : asked ? "ASK ME ANOTHER" : "ASK ME ANYTHING"}
               </motion.button>
               <p className="mt-3 text-xs font-bold text-ink/45">
-                just a demo · totally random numbers · the real app actually reads you
+                just a toy · random numbers · the live preview above actually reads you
               </p>
             </div>
           </div>
         </Reveal>
 
         <Reveal delay={0.15}>
-          <a href="#join" className="btn-pop mt-8 bg-lime text-ink">
-            OK I NEED THE REAL THING →
+          <a href="#preview" className="btn-pop mt-8 bg-lime text-ink">
+            OK, SHOW ME THE REAL ONE →
           </a>
         </Reveal>
       </div>

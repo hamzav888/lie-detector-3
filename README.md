@@ -1,141 +1,149 @@
-# 🎯 Lie Detector App — Pre-Launch Waitlist Site
+# Lie Detector App — landing site + live preview
 
-A bold, high-energy **pre-launch landing page** for the **Lie Detector App** — a
-playful mobile **entertainment** game launching soon on iOS & Android. The site's
-whole job is to **build hype and capture email waitlist signups**. Built by
-**Matrixx Agency**.
+The pre-launch site for the **Lie Detector App**, a camera-based party game, with a
+**live preview of the real app running in the browser**. Built by **Matrixx Agency**.
 
-> **It's a game, not a real lie detector.** Copy leans loud and funny while keeping
-> an honest disclaimer. The read is on-device and consent-based.
+> **It's a game, not a real lie detector.** The copy is loud and funny and always keeps an
+> honest disclaimer nearby. The read runs on-device and is consent-based.
 
-Design direction: **POP / PARTY** — bright, color-blocked, chunky rounded type,
-bouncy spring motion, confetti, a "CAUGHT!!" stamp slam, and a signature expressive
-**Truth-o-meter** with a springy needle + a CSS-drawn face that panics as it climbs.
+Fully static. Deploys to **GitHub Pages** from this folder with a single push.
 
 ---
 
-## 🧱 Stack
+## What's in here
 
-- **Next.js 14** (App Router) + **TypeScript**
-- **Tailwind CSS** (design tokens in `tailwind.config.ts`)
-- **Framer Motion** (springs, confetti, reveals — all respect `prefers-reduced-motion`)
-- Deploy on **Vercel**. Mobile-first, fully responsive, zero external image/logo deps
-  (every visual is CSS/SVG).
+| | |
+|---|---|
+| `app/` | Next.js App Router pages: home, `/play` (the app full screen), `/privacy`, 404, favicon, `/og.png`, `robots.txt`, `sitemap.xml` |
+| `components/` | The page sections. All visuals are CSS/SVG — no image files, no emoji |
+| `lib/site.ts` | Brand name, URL, waitlist config, the counter, the three stat chips |
+| `lib/paths.ts` | `basePath` helpers for links that Next doesn't prefix for you |
+| `public/app/` | **The app itself** — the real web build, served as static files at `/app/` |
+| `scripts/sync-app.mjs` | Re-copies the app from `../app/www` after you change it |
+| `scripts/serve.mjs` | Serves the built site exactly like Pages does, sub-path included |
+| `.github/workflows/deploy.yml` | Builds and publishes on every push to `main` |
 
 ---
 
-## 🚀 Run it locally
+## Deploy to GitHub Pages
+
+1. Push this folder to a GitHub repository (the folder's contents at the repo root).
+2. In the repo: **Settings → Pages → Build and deployment → Source: GitHub Actions.**
+3. Push to `main`. The workflow builds and publishes. The URL appears in the Actions run.
+
+That's it. The workflow reads the repo's Pages configuration and sets the sub-path
+automatically, so the same workflow is correct for:
+
+- a project site — `https://<user>.github.io/<repo>/`
+- a user site — `https://<user>.github.io/` (repo named `<user>.github.io`)
+- a custom domain
+
+### Connect the waitlist (do this before launch)
+
+The site is static, so the signup form posts straight from the browser. Pick one:
+
+**Formspree** (simplest): create a form at [formspree.io](https://formspree.io), copy its
+id, then in the repo go to **Settings → Secrets and variables → Actions → Variables**
+and add `NEXT_PUBLIC_FORMSPREE_ID`.
+
+**Any endpoint**: add `NEXT_PUBLIC_WAITLIST_ENDPOINT` instead — a URL that accepts a JSON
+`POST` of `{ email, source }` and answers 2xx (Netlify Forms, a Cloudflare Worker, Zapier…).
+
+Until one of these is set, the form shows people a friendly "not taking names yet"
+message instead of pretending to work.
+
+Optional: `NEXT_PUBLIC_WAITLIST_BASE_COUNT` to change the hype number.
+
+---
+
+## Run it locally
 
 ```bash
 npm install
 npm run dev
 ```
 
-Open **http://localhost:3000**.
+Opens on <http://localhost:3000>. The live preview inside the phone needs a camera and a
+secure origin — `localhost` counts.
 
-The waitlist form works out-of-the-box: with no provider configured it uses the
-`console` provider and logs each signup to your terminal. Wire a real provider when
-you're ready (below).
-
-Other scripts:
+Check the production build the way Pages will serve it, sub-path and all:
 
 ```bash
-npm run build   # production build
-npm run start   # serve the production build
-npm run lint    # eslint
+NEXT_PUBLIC_BASE_PATH=/your-repo-name npm run build
+NEXT_PUBLIC_BASE_PATH=/your-repo-name npm run preview
 ```
+
+Other scripts: `npm run lint`, `npm run typecheck`.
 
 ---
 
-## 📬 Waitlist form + email provider
+## The live preview
 
-- Form: `components/WaitlistForm.tsx` (client-side validation, loading / success /
-  error states, honeypot, share button). Appears in the **Hero** and the **Final CTA**.
-- API route: `app/api/waitlist/route.ts` — validates the email server-side and hands
-  it to your chosen provider.
+`public/app/` is a straight copy of the app's web build (`../app/www`). It is plain
+static files with no build step, so Next ships it untouched and it works at any
+sub-path. It includes the bundled MediaPipe runtime and face model (~23 MB on disk;
+~13 MB over the wire on first launch, cached forever after).
 
-Pick a provider by setting `WAITLIST_PROVIDER` in `.env.local`. Copy the example first:
+It appears in two places, and both are the real, fully playable app:
+
+- **On the home page** (`#preview`), inside a phone frame. It mounts the moment the
+  section scrolls into view, so there's nothing to tap first. Visitors who never
+  scroll that far never download the runtime.
+- **Full screen at `/play/`**, filling the viewport inside a slim site bar, with the
+  app's desktop layout on wide screens.
+
+Both embed it in an `<iframe allow="camera">`, so the camera permission prompt
+comes from the app itself. Same-origin, so no extra headers are needed.
+
+Both load it as `/app/index.html?skin=pop`. That flag dresses the app in this site's
+look — the pop palette, Baloo 2 and Nunito, ink outlines, sticker shadows and the
+Truth-o-meter face — so the preview reads as the same product as the page around it.
+Without the flag the app shows its native dark skin.
+
+After changing the app:
 
 ```bash
-cp .env.local.example .env.local
-```
-
-Supported values and the keys each one needs (each has a clear `TODO` in the route):
-
-| `WAITLIST_PROVIDER` | Env vars to set |
-| --- | --- |
-| `console` (default) | none — logs signups to the server console |
-| `resend`     | `RESEND_API_KEY`, `RESEND_AUDIENCE_ID` |
-| `convertkit` | `CONVERTKIT_API_KEY`, `CONVERTKIT_FORM_ID` |
-| `mailchimp`  | `MAILCHIMP_API_KEY`, `MAILCHIMP_DC`, `MAILCHIMP_AUDIENCE_ID` |
-| `formspree`  | `FORMSPREE_FORM_ID` |
-
-> The integration functions are already written — you just add keys. If a required
-> key is missing, the API returns a friendly error and logs the reason.
-
----
-
-## ▲ Deploy to Vercel
-
-1. Push this repo to GitHub/GitLab/Bitbucket.
-2. In [Vercel](https://vercel.com/new), **Import** the repo. Framework auto-detects as
-   **Next.js** — no config needed.
-3. Add your environment variables (Project → **Settings → Environment Variables**):
-   `WAITLIST_PROVIDER` and the keys for your provider, plus optional
-   `NEXT_PUBLIC_WAITLIST_BASE_COUNT`.
-4. **Deploy.** Add your custom domain under **Settings → Domains**.
-
-Or from the CLI:
-
-```bash
-npm i -g vercel
-vercel        # preview
-vercel --prod # production
+npm run sync:app
 ```
 
 ---
 
-## 📁 Structure
+## Keeping the copy honest
 
-```
-app/
-  layout.tsx            # fonts (Baloo 2 + Nunito), metadata, <html>/<body>
-  page.tsx              # assembles all sections in order
-  globals.css           # tokens, component classes, grain, reduced-motion
-  api/waitlist/route.ts # POST endpoint + provider switch (TODOs)
-components/
-  Nav, Hero, Meter, WaitlistForm, HowItWorks, WhyFun,
-  InteractiveTeaser, SocialProof, FAQ, FinalCTA, Footer,
-  Confetti, Stamp, Marquee, Reveal, Wordmark
-lib/
-  site.ts               # brand name, socials, counter base, copy tokens
-  utils.ts              # clamp/lerp/color + verdict helpers
-```
+Three things the page says that are load-bearing for review and for trust:
 
----
+1. **It reads six signals** — blink rate, gaze, brow, mouth, head and body — against a
+   baseline learned from you. That is exactly what the app measures. Don't add "heart
+   rate", "breathing" or anything it doesn't do.
+2. **It is entertainment**, an edge rather than evidence. Every section keeps the
+   disclaimer close.
+3. **Poker Mode is coming soon, and it isn't in the preview.** The site describes it as
+   online poker night with your friends — everyone on camera, everyone opted in — and
+   always says it's on the way. Never imply it can be tried today, and never pitch it for
+   real-money tables.
 
-## ✅ Accessibility & quality
-
-- Semantic HTML, labelled form controls, `aria-live` status, keyboard-navigable
-  accordions, "skip to signup" link, strong focus rings.
-- Respects `prefers-reduced-motion` (looping/decorative animation is disabled).
-- No copyrighted images, logos, or emoji-as-characters — all visuals are CSS/SVG.
+The stat chips under the counter are true statements about how the game works, not
+invented traffic figures. Keep them that way.
 
 ---
 
-## 🔧 Swap-in list (do these before launch)
+## Swap-in list
 
-1. **Wordmark / brand name** — edit `SITE.name` (and `tagline`, `url`, `socials`) in
-   [`lib/site.ts`](lib/site.ts). To change the little logo mark, edit the SVG in
-   [`components/Wordmark.tsx`](components/Wordmark.tsx). Currently `Lie Detector App`.
-2. **Email provider key** — set `WAITLIST_PROVIDER` + the matching keys in `.env.local`
-   (see [`.env.local.example`](.env.local.example)). Same vars go in Vercel.
-3. **Domain** — set `SITE.url` in [`lib/site.ts`](lib/site.ts) (used for metadata/OG),
-   then add the domain in Vercel → Settings → Domains.
-4. *(optional)* **Waitlist counter** — set `NEXT_PUBLIC_WAITLIST_BASE_COUNT` in
-   `.env.local` to change the hype number in the social-proof section.
-5. *(optional)* **Social links** — real URLs in `SITE.socials` (`lib/site.ts`).
+1. **Brand name** — `SITE.name` in [`lib/site.ts`](lib/site.ts). The wordmark, metadata,
+   footer, privacy page and OG image all read from it. The logo mark is the SVG in
+   [`components/Wordmark.tsx`](components/Wordmark.tsx) and [`app/icon.svg`](app/icon.svg).
+2. **Waitlist** — see above.
+3. **Social links** — real URLs in `SITE.socials`.
+4. **Privacy contact** — the privacy page says to "ask us"; add an address once you have one.
 
 ---
 
-Built with 💥 by Matrixx Agency. It's entertainment — enjoy responsibly.
+## Accessibility and quality
+
+- Semantic HTML, labelled controls, `aria-live` form status, keyboard-navigable FAQ,
+  "skip to signup" link, strong focus rings.
+- `prefers-reduced-motion` honoured globally — looping and decorative motion stops.
+- No external images, logos or emoji-as-characters. Every visual is CSS/SVG.
+- Static export: no server, no API routes, no cookies, no analytics.
+
+Built with care by Matrixx Agency. It's entertainment — enjoy responsibly.

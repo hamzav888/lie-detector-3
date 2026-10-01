@@ -6,6 +6,8 @@ import Meter from "./Meter";
 import WaitlistForm from "./WaitlistForm";
 import PokerChip from "./PokerChip";
 import SuitIcon from "./Suit";
+import { SITE } from "@/lib/site";
+import { formatCount } from "@/lib/utils";
 
 // A little scripted demo so the hero meter feels alive on load.
 const DEMO_SEQUENCE = [12, 68, 34, 88, 22, 74, 47];
@@ -70,7 +72,7 @@ export default function Hero() {
               className="chip inline-flex bg-felt text-cream transition-transform hover:-translate-y-[2px]"
             >
               <SuitIcon suit="spade" color="#FFF8EE" className="h-3.5 w-3.5" />
-              POKER MODE INSIDE
+              POKER MODE · SOON
             </motion.a>
           </div>
 
@@ -82,19 +84,26 @@ export default function Hero() {
           <p className="mx-auto mt-5 max-w-md text-lg font-bold text-white/95 sm:text-xl md:mx-0">
             Point your phone. Ask the spicy questions. Watch the needle{" "}
             <span className="rounded-md bg-magenta px-1.5 text-white">freak out</span>{" "}
-            as your bestie sweats. It&apos;s the lie-detector party game — coming soon.
+            as your best friend sweats. It&apos;s the lie-detector party game — and you can
+            try it right now.
           </p>
 
           <div className="mt-7 flex flex-col items-center md:items-start" id="join-hero">
             <WaitlistForm variant="hero" source="hero" />
           </div>
 
-          <div className="mt-6 flex items-center justify-center gap-2 md:justify-start">
-            <Dots />
-            <span className="text-sm font-bold text-white/85">
-              <span className="tabular-nums">18,427</span> already skipping the
-              line
-            </span>
+          <div className="mt-6 flex flex-col items-center gap-3 md:items-start">
+            <div className="flex items-center gap-2">
+              <Dots />
+              <span className="text-sm font-bold text-white/85">
+                <span className="tabular-nums">{formatCount(SITE.waitlistBaseCount)}</span>{" "}
+                already skipping the line
+              </span>
+            </div>
+            <a href="#preview" className="btn-pop bg-white text-ink">
+              <span className="grid h-3.5 w-3.5 place-items-center rounded-full bg-danger" />
+              PLAY THE PREVIEW NOW
+            </a>
           </div>
         </div>
 
@@ -111,7 +120,7 @@ export default function Hero() {
               LIVE
             </span>
             <span className="chip absolute -right-3 -top-3 rotate-[8deg] bg-magenta text-white">
-              DRAMA ✦
+              DRAMA
             </span>
 
             <p className="mb-1 text-center font-display text-sm font-extrabold uppercase tracking-widest text-ink/50">
@@ -119,7 +128,7 @@ export default function Hero() {
             </p>
             <Meter value={value} />
             <p className="mt-3 text-center text-xs font-bold text-ink/45">
-              For entertainment only — it just has to be right about half the time.
+              For entertainment only — it just has to be right more often than your friends.
             </p>
           </motion.div>
         </div>

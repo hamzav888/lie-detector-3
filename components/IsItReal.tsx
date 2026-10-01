@@ -7,7 +7,7 @@ const COLUMNS = [
   {
     tag: "A REAL EDGE",
     bg: "bg-lime",
-    body: "It reads actual stress and nervousness cues, live, measured against your own calm baseline. Way more telling than a plain guess — at a party or across a poker table.",
+    body: "It measures six real stress and nervousness cues, live, against your own calm baseline — and only moves when several agree. Far more telling than a plain guess, at a party or across a poker table.",
   },
   {
     tag: "NOT A POLYGRAPH",
@@ -28,8 +28,8 @@ export default function IsItReal() {
           <p className="mx-auto mt-5 max-w-2xl text-lg font-semibold text-ink/70">
             Straight answer: it’s built for entertainment — a party game, not a courtroom.
             But it isn’t smoke and mirrors either. It reads genuine signs of stress and
-            nerves, the same tells a sharp friend learns to spot. So you go in with a much
-            better read than you’d get flying blind.
+            nerves — the same tells a sharp friend learns to spot — and you can watch it do
+            that in the preview above. You go in with a much better read than flying blind.
           </p>
         </Reveal>
 

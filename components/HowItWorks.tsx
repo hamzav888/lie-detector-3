@@ -15,28 +15,28 @@ const STEPS: Step[] = [
   {
     n: "1",
     title: "Chill out",
-    body: "Answer a couple of easy warm-ups so the app learns your calm ‘baseline’. Deep breath. You got this.",
+    body: "Twenty calm seconds while the app learns your baseline — your blinks, your gaze, your resting face. Deep breath. You’ve got this.",
     bg: "bg-lime",
     icon: <IconBaseline />,
   },
   {
     n: "2",
     title: "Ask the spicy stuff",
-    body: "Point the camera. It reads your blinks, breathing & micro-expressions — all on your phone, with consent.",
+    body: "Point the camera. It reads six signals — blinks, gaze, brow, mouth, head and body — all on your phone, with consent.",
     bg: "bg-sun",
     icon: <IconCamera />,
   },
   {
     n: "3",
     title: "Watch it FREAK OUT",
-    body: "The needle swings as your friend squirms. Truth… or total cap? The whole room leans in.",
+    body: "It reads the whole answer, not one blink. The needle climbs as the signals start agreeing. The whole room leans in.",
     bg: "bg-magenta",
     icon: <IconMeter />,
   },
   {
     n: "4",
     title: "Screenshot the carnage",
-    body: "Big reveal. Ridiculous reading. Screenshot it, post it, run it back. Loser buys snacks.",
+    body: "Big reveal, ridiculous number, a list of exactly which tells moved. Screenshot it, post it, run it back.",
     bg: "bg-sky",
     icon: <IconShare />,
   },
@@ -52,7 +52,7 @@ export default function HowItWorks() {
             Four taps to total chaos
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-lg font-semibold text-ink/70">
-            Two people. One phone. A needle that has zero chill.
+            Two people. One phone. A needle with zero chill.
           </p>
         </Reveal>
 
