@@ -16,7 +16,7 @@ Fully static. Deploys to **GitHub Pages** from this folder with a single push.
 |---|---|
 | `app/` | Next.js App Router pages: home, `/play` (the app full screen), `/privacy`, 404, favicon, `/og.png`, `robots.txt`, `sitemap.xml` |
 | `components/` | The page sections. All visuals are CSS/SVG — no image files, no emoji |
-| `lib/site.ts` | Brand name, URL, waitlist config, the counter, the three stat chips |
+| `lib/site.ts` | Brand name, URL, notify-me signup config, the counter, the three stat chips |
 | `lib/paths.ts` | `basePath` helpers for links that Next doesn't prefix for you |
 | `public/app/` | **The app itself** — the real web build, served as static files at `/app/` |
 | `scripts/sync-app.mjs` | Re-copies the app from `../app/www` after you change it |
@@ -38,9 +38,10 @@ automatically, so the same workflow is correct for:
 - a user site — `https://<user>.github.io/` (repo named `<user>.github.io`)
 - a custom domain
 
-### Connect the waitlist (do this before launch)
+### Connect the "notify me" signup (do this before launch)
 
-The site is static, so the signup form posts straight from the browser. Pick one:
+The site's one call to action is: leave your email, get one message when the app is on
+the App Store. The site is static, so the form posts straight from the browser. Pick one:
 
 **Formspree** (simplest): create a form at [formspree.io](https://formspree.io), copy its
 id, then in the repo go to **Settings → Secrets and variables → Actions → Variables**
@@ -49,8 +50,9 @@ and add `NEXT_PUBLIC_FORMSPREE_ID`.
 **Any endpoint**: add `NEXT_PUBLIC_WAITLIST_ENDPOINT` instead — a URL that accepts a JSON
 `POST` of `{ email, source }` and answers 2xx (Netlify Forms, a Cloudflare Worker, Zapier…).
 
-Until one of these is set, the form shows people a friendly "not taking names yet"
-message instead of pretending to work.
+Until one of these is set, the form tells people sign-ups aren't switched on yet instead
+of pretending to work. (The variables keep their original `WAITLIST` names so existing
+configuration keeps working.)
 
 Optional: `NEXT_PUBLIC_WAITLIST_BASE_COUNT` to change the hype number.
 
@@ -132,7 +134,7 @@ invented traffic figures. Keep them that way.
 1. **Brand name** — `SITE.name` in [`lib/site.ts`](lib/site.ts). The wordmark, metadata,
    footer, privacy page and OG image all read from it. The logo mark is the SVG in
    [`components/Wordmark.tsx`](components/Wordmark.tsx) and [`app/icon.svg`](app/icon.svg).
-2. **Waitlist** — see above.
+2. **Notify-me signup** — see above.
 3. **Social links** — real URLs in `SITE.socials`.
 4. **Privacy contact** — the privacy page says to "ask us"; add an address once you have one.
 

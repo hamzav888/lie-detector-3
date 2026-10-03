@@ -33,7 +33,7 @@ export default function SocialProof() {
       <div aria-hidden className="pointer-events-none absolute inset-0 bg-dots opacity-[0.12]" />
       <div ref={ref} className="relative mx-auto max-w-4xl text-center">
         <Reveal>
-          <span className="eyebrow bg-lime text-ink">THE LINE IS LONG</span>
+          <span className="eyebrow bg-lime text-ink">THE LIST IS LONG</span>
         </Reveal>
 
         <Reveal delay={0.05}>
@@ -47,7 +47,7 @@ export default function SocialProof() {
               {formatCount(count)}
             </div>
             <p className="mt-3 text-xl font-extrabold sm:text-2xl">
-              people already in line to expose their friends
+              people waiting to expose their friends
             </p>
           </div>
         </Reveal>
@@ -74,7 +74,7 @@ export default function SocialProof() {
 
         <Reveal delay={0.2}>
           <a href="#join" className="btn-pop mt-10 bg-magenta text-white">
-            GRAB MY SPOT
+            NOTIFY ME TOO
           </a>
         </Reveal>
       </div>

@@ -97,7 +97,7 @@ export default function Hero() {
               <Dots />
               <span className="text-sm font-bold text-white/85">
                 <span className="tabular-nums">{formatCount(SITE.waitlistBaseCount)}</span>{" "}
-                already skipping the line
+                people waiting for the App Store
               </span>
             </div>
             <a href="#preview" className="btn-pop bg-white text-ink">

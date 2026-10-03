@@ -25,7 +25,7 @@ export default function Footer() {
               coming soon to iOS &amp; Android.
             </p>
             <a href="#join" className="btn-pop mt-5 bg-lime text-ink">
-              JOIN THE WAITLIST
+              GET NOTIFIED
             </a>
           </div>
 

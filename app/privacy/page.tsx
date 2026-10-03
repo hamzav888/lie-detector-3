@@ -24,7 +24,7 @@ export default function PrivacyPage() {
             <Wordmark />
           </Link>
           <Link href="/#join" className="btn-pop bg-lime text-ink">
-            JOIN NOW
+            NOTIFY ME
           </Link>
         </nav>
       </header>
@@ -44,8 +44,8 @@ export default function PrivacyPage() {
             <p className="mt-2 font-semibold text-ink/80">
               The lie-detector read runs entirely on your device. No video frame, no face
               landmark and no score is ever uploaded — there is no account and no server
-              behind it. The only thing we ever collect is the email you choose to leave on
-              the waitlist.
+              behind it. The only thing we ever collect is the email you choose to leave so
+              we can tell you when the app is on the App Store.
             </p>
           </div>
 
@@ -69,11 +69,11 @@ export default function PrivacyPage() {
             </p>
           </Section>
 
-          <Section title="The waitlist">
+          <Section title="Launch notifications">
             <p>
-              If you join the waitlist, we keep your email address so we can tell you when the
-              app launches. That email goes to the form service we use to hold the list; it is
-              not shared with anyone else and is not used for anything other than launch news.
+              If you ask to be notified, we keep your email address so we can tell you when the
+              app is on the App Store. That email goes to the form service we use to hold the
+              list; it is not shared with anyone else and is not used for anything else.
               Every email we send includes a way to unsubscribe, and you can ask us to delete
               your address at any time.
             </p>
@@ -107,7 +107,7 @@ export default function PrivacyPage() {
           <Section title="Children">
             <p>
               The app and this site are not directed at children under 13 and collect no
-              personal information from anyone beyond the waitlist email described above.
+              personal information from anyone beyond the notification email described above.
             </p>
           </Section>
 

@@ -5,7 +5,8 @@ Project context for anyone, human or AI, working on this folder.
 ## What this is
 The **pre-launch landing site** for the **Lie Detector App**, a camera-based party game,
 plus a **live preview of the real app** embedded on the page. Built by **Matrixx Agency**.
-Two jobs: let people try it, and capture waitlist emails.
+Two jobs: let people try it, and collect emails from people who want to be told when it's
+on the App Store.
 
 > Wordmark reads `Lie Detector App`. Swap `SITE.name` when the real brand lands.
 
@@ -43,8 +44,10 @@ Don't bleed poker language into general sections or vice versa. Poker is a mode,
 brand. No real casino or brand IP.
 
 ## Conversion
-Every section drives to **one action**: join the waitlist (`#join`), with the live preview
-(`#preview`) as the proof point on the way. The hero form reappears in the final CTA.
+Every section drives to **one action**: get notified when it's on the App Store (`#join`),
+with the live preview (`#preview`) as the proof point on the way. The hero form reappears in
+the final CTA. **Don't promise early access, perks or badges** — the signup is a single
+"it's on the App Store" email, nothing more.
 
 ## Stack and hosting
 - **Next.js 14 (App Router) + TypeScript**, **Tailwind**, **Framer Motion**.
@@ -55,7 +58,7 @@ Every section drives to **one action**: join the waitlist (`#join`), with the li
 - **`basePath`** comes from `NEXT_PUBLIC_BASE_PATH` (set by the workflow). Next prefixes
   `<Link>` and its own assets. Plain `<a href>`, `<iframe src>` and anything in
   metadata must go through `withBase()` / `APP_PATH` in `lib/paths.ts`.
-- The waitlist form posts from the browser to Formspree or `NEXT_PUBLIC_WAITLIST_ENDPOINT`
+- The notify-me form posts from the browser to Formspree or `NEXT_PUBLIC_WAITLIST_ENDPOINT`
   (see `lib/site.ts`). With neither configured it shows an honest "not yet" message.
 - `trailingSlash: true` so `/privacy/` resolves to a real `index.html` on Pages.
 

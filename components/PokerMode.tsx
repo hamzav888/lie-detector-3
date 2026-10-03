@@ -150,7 +150,7 @@ export default function PokerMode() {
             <Reveal delay={0.3}>
               <div className="flex flex-col items-start gap-4 pt-2 sm:flex-row sm:items-center">
                 <a href="#join" className="btn-pop bg-lime text-ink">
-                  GET A SEAT AT THE TABLE
+                  NOTIFY ME
                 </a>
                 <span className="flex items-center gap-2" aria-hidden="true">
                   <SuitIcon suit="spade" color="#FFF8EE" className="h-4 w-4" />
@@ -165,8 +165,8 @@ export default function PokerMode() {
 
         <Reveal delay={0.2}>
           <p className="mx-auto mt-10 max-w-2xl text-center font-semibold text-cream/70">
-            Poker Mode isn&apos;t in the preview yet — join the waitlist and you&apos;ll hear the
-            second it lands. Built for friendly games with people you know, for laughs. Never
+            Poker Mode isn&apos;t in the preview yet — leave your email and we&apos;ll tell you
+            when it lands. Built for friendly games with people you know, for laughs. Never
             for real-money tables.
           </p>
         </Reveal>

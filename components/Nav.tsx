@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Wordmark from "./Wordmark";
 
-/** Chunky sticky nav: wordmark + a loud JOIN NOW pill that scrolls to the form. */
+/** Chunky sticky nav: wordmark + a loud NOTIFY ME pill that scrolls to the form. */
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -81,7 +81,7 @@ export default function Nav() {
             whileTap={{ scale: 0.94 }}
             className="btn-pop bg-lime text-ink"
           >
-            JOIN NOW
+            NOTIFY ME
           </motion.a>
         </div>
       </nav>

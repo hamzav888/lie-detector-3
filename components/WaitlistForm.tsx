@@ -52,7 +52,7 @@ export default function WaitlistForm({
     if (!endpoint) {
       setStatus("unconfigured");
       setMessage(
-        "The list isn’t taking names quite yet — follow along below and we’ll open the doors soon.",
+        "Sign-ups aren’t switched on quite yet — check back soon and we’ll let you know when it’s on the App Store.",
       );
       return;
     }
@@ -105,11 +105,11 @@ export default function WaitlistForm({
           </span>
           <div>
             <p className="font-display text-xl font-extrabold leading-tight sm:text-2xl">
-              YOU&apos;RE IN LINE!
+              YOU&apos;RE ON THE LIST!
             </p>
             <p className="mt-1 font-semibold text-ink/80">
               We&apos;ll email <span className="font-extrabold">{email}</span> the
-              second it drops. Now go recruit your most suspicious friend.
+              moment it&apos;s on the App Store. Now go warn your most suspicious friend.
             </p>
             <ShareButton />
           </div>
@@ -172,7 +172,7 @@ export default function WaitlistForm({
               <Spinner /> HOLD UP…
             </span>
           ) : (
-            "GET EARLY ACCESS"
+            "NOTIFY ME"
           )}
         </motion.button>
       </div>
@@ -195,7 +195,7 @@ export default function WaitlistForm({
       </AnimatePresence>
 
       <p className="mt-2 pl-2 text-sm font-semibold text-ink/55">
-        No spam, ever. One “it&apos;s live” email, then we leave you alone.
+        One email when it&apos;s on the App Store. No spam, ever.
       </p>
     </form>
   );
@@ -215,7 +215,7 @@ function ShareButton() {
   async function share() {
     const shareData = {
       title: SITE.name,
-      text: "I just skipped the line for the funniest lie-detector party app. Get in before me.",
+      text: "This lie-detector party game is about to hit the App Store — and you can already play it in your browser.",
       url: typeof window !== "undefined" ? window.location.href : SITE.url,
     };
     try {

@@ -15,15 +15,15 @@ const FAQS = [
   },
   {
     q: "Is my data private?",
-    a: "Yes, that’s the whole point. The read happens on-device with your consent — the camera feed is processed on your phone (or in your browser for the preview), never sent to a server. There’s no account. The only thing we ever ask for is the email you choose to leave on the waitlist. The privacy page has the full picture.",
+    a: "Yes, that’s the whole point. The read happens on-device with your consent — the camera feed is processed on your phone (or in your browser for the preview), never sent to a server. There’s no account. The only thing we ever ask for is the email you choose to leave to get notified. The privacy page has the full picture.",
   },
   {
     q: "When does it come out?",
-    a: "Soon — the read is working (you can try it above) and we’re finishing the native iOS and Android apps. Drop your email and you’ll be first through the door, before your nosiest friend.",
+    a: "Soon — the read is working (you can try it above) and we’re finishing the native iOS and Android apps. Leave your email and we’ll tell you the moment it’s on the App Store.",
   },
   {
     q: "Is it free?",
-    a: "There’ll be a free way to play and cause problems. Waitlist crew gets early access and launch perks first — we’ll share the rest closer to launch.",
+    a: "There’ll be a free way to play and cause problems. We’ll share the details when it’s on the App Store.",
   },
   {
     q: "How do I actually play?",

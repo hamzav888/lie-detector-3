@@ -37,7 +37,7 @@ export default function PlayPage() {
               New tab ↗
             </a>
             <Link href="/#join" className="btn-pop bg-magenta text-white">
-              JOIN THE WAITLIST
+              GET NOTIFIED
             </Link>
           </div>
         </nav>

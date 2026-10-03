@@ -48,14 +48,14 @@ export default function StickyCTA() {
           >
             <span className="text-left leading-tight">
               <span className="block font-display text-base font-extrabold text-ink">
-                Skip the line
+                Get notified
               </span>
               <span className="block text-xs font-bold text-ink/55">
-                Early access on iOS &amp; Android
+                When it&apos;s on the App Store
               </span>
             </span>
             <span className="rounded-pill border-[3px] border-ink bg-lime px-4 py-1.5 font-display text-sm font-extrabold text-ink">
-              JOIN
+              NOTIFY ME
             </span>
           </a>
         </motion.div>

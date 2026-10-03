@@ -10,7 +10,7 @@ export const SITE = {
   url: (process.env.NEXT_PUBLIC_SITE_URL ?? "https://hamzav888.github.io/lie-detector-3").replace(/\/$/, ""),
   builtBy: "Matrixx Agency",
   description:
-    "The lie-detector party game. Point your phone, ask the spicy questions and watch the needle freak out. Try the live preview in your browser, then join the waitlist for iOS and Android — with Poker Mode for online games with your friends on the way.",
+    "The lie-detector party game. Point your phone, ask the spicy questions and watch the needle freak out. Try the live preview in your browser, then get notified when it’s on the App Store — with Poker Mode for online games with your friends on the way.",
 
   /** Public-facing waitlist counter starting point (hype flavour only). */
   waitlistBaseCount: Number(process.env.NEXT_PUBLIC_WAITLIST_BASE_COUNT ?? 18427),

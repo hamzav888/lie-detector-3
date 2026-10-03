@@ -42,7 +42,7 @@ export default function Home() {
         href="#join"
         className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-pill focus:border-[3px] focus:border-ink focus:bg-lime focus:px-4 focus:py-2 focus:font-display focus:font-extrabold"
       >
-        Skip to waitlist signup
+        Skip to the notify-me signup
       </a>
 
       <Nav />

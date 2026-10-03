@@ -6,10 +6,10 @@ import Reveal from "./Reveal";
 import PlayingCard from "./PlayingCard";
 import Zigzag from "./Zigzag";
 
-const PERKS = [
-  "Skip the line — early access before launch",
-  "Founding-member badge in the app",
-  "Launch-day surprises for the waitlist crew",
+const PROMISES = [
+  "One email, the day it’s live",
+  "No spam, no newsletter",
+  "Unsubscribe in one tap",
 ];
 
 export default function FinalCTA() {
@@ -29,14 +29,14 @@ export default function FinalCTA() {
 
       <div className="relative mx-auto max-w-3xl text-center">
         <Reveal>
-          <span className="eyebrow bg-lime">LAST CHANCE TO SKIP THE LINE</span>
+          <span className="eyebrow bg-lime">BE THE FIRST TO KNOW</span>
           <h2 className="mt-5 font-display text-5xl font-extrabold leading-[0.95] tracking-tight text-white sm:text-6xl lg:text-7xl">
-            <span className="text-outline block">GET IN BEFORE</span>
-            <span className="block text-sun text-outline">YOUR FRIENDS DO</span>
+            <span className="text-outline block">HEAR IT FIRST</span>
+            <span className="block text-sun text-outline">WHEN IT DROPS</span>
           </h2>
           <p className="mx-auto mt-4 max-w-lg text-lg font-bold text-white/95">
-            Be first to point the phone. One email = early access + launch-day
-            perks. No spam, just the good news.
+            Leave your email and we&apos;ll tell you the moment it&apos;s on the App
+            Store — before your friends find out the hard way.
           </p>
         </Reveal>
 
@@ -50,7 +50,7 @@ export default function FinalCTA() {
 
         <Reveal delay={0.15}>
           <ul className="mx-auto mt-7 flex max-w-xl flex-col items-center gap-2 sm:flex-row sm:justify-center sm:gap-4">
-            {PERKS.map((p) => (
+            {PROMISES.map((p) => (
               <li key={p} className="flex items-center gap-2 text-left font-bold text-white/95">
                 <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full border-2 border-white bg-lime">
                   <svg viewBox="0 0 24 24" className="h-4 w-4" aria-hidden="true">

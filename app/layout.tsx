@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     "bluff game",
     "party game app",
     "truth or dare",
-    "waitlist",
+    "App Store",
     "iOS",
     "Android",
   ],
